@@ -1,0 +1,53 @@
+/* ── 타이핑 heat steam — 머리 위 빨간 김 particle들 ──
+   JS가 --steam-opacity 변수로 전체 opacity 조절 (heat > 0.5일 때만 보임) */
+#heat-steam {
+  position: absolute;
+  top: calc(var(--cat-top) - 60px);
+  left: calc(50% - 5px);
+  width: var(--cat-size);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: var(--steam-opacity, 0);
+  transition: opacity 0.25s ease;
+  z-index: 7;
+}
+.steam-particle {
+  position: absolute;
+  width: 3%;
+  height: 8%;
+  background: #ff4538;
+  top: 56%;
+  transform-origin: 50% 100%;  /* 아래쪽 고정 — scaleY 변화 시 위로 늘어남 */
+  image-rendering: pixelated;
+  animation: steam-rise 2s linear infinite paused;
+}
+
+body[data-heat-steam] .steam-particle {
+  animation-play-state: running;
+}
+.steam-particle:nth-child(1) { left: 32%; animation-delay: 0s;    }
+.steam-particle:nth-child(2) { left: 47%; animation-delay: 0.4s;  }
+.steam-particle:nth-child(3) { left: 62%; animation-delay: 0.8s;  }
+.steam-particle:nth-child(4) { left: 39%; animation-delay: 1.2s;  }
+.steam-particle:nth-child(5) { left: 55%; animation-delay: 1.6s;  }
+
+@keyframes steam-rise {
+  0%   { transform: translate(0, 0)     scaleY(0.4); opacity: 1; }
+  40%  { transform: translate(0, -80%)  scaleY(1.3); opacity: 1; }
+  70%  { transform: translate(0, -150%) scaleY(1.0); opacity: 0.8; }
+  100% { transform: translate(0, -220%) scaleY(0.5); opacity: 0; }
+}
+
+/* dragging / break stretching 중에는 김 효과 숨김 */
+body.dragging #heat-steam,
+body[data-stretching] #heat-steam { display: none; }
+
+body.dragging #purr-hearts,
+body[data-stretching] #purr-hearts,
+body[data-hunting] #purr-hearts,
+body[data-hunting-return] #purr-hearts,
+body[data-press] #purr-hearts,
+body[data-scroll] #purr-hearts,
+body[data-jump] #purr-hearts { display: none; }
+

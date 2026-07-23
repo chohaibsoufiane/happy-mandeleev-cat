@@ -1,0 +1,77 @@
+body[data-speech="notice"] #cat,
+body[data-speech="break"] #cat,
+body[data-speech="focus"] #cat,
+body[data-speech="notice"] #press-left,
+body[data-speech="break"] #press-left,
+body[data-speech="focus"] #press-left,
+body[data-speech="notice"] #press-right,
+body[data-speech="break"] #press-right,
+body[data-speech="focus"] #press-right,
+body[data-speech="notice"] #stretch-pose-default,
+body[data-speech="break"] #stretch-pose-default,
+body[data-speech="focus"] #stretch-pose-default {
+  animation: ai-jump 0.42s steps(2, end) 4;
+}
+
+#cat-thinking-dots {
+  position: absolute;
+  left: calc(50% - var(--cat-size) * 0.39 - 19px);
+  top: calc(var(--cat-top) + 7%);
+  transform: translateX(-50%);
+  display: none;
+  padding: 5px 7px;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  pointer-events: none;
+  z-index: 6;
+}
+
+body[data-thinking] #cat-thinking-dots {
+  display: flex;
+  gap: 3px;
+}
+
+#cat-thinking-dots span {
+  width: 5px;
+  height: 5px;
+  overflow: hidden;
+  color: transparent;
+  background: #111;
+  animation: thinking-dot 1.05s steps(2, end) infinite;
+}
+
+#cat-thinking-dots span:nth-child(2) { animation-delay: 0.16s; }
+#cat-thinking-dots span:nth-child(3) { animation-delay: 0.32s; }
+
+body[data-press] #cat-thinking-dots,
+body[data-scroll] #cat-thinking-dots,
+body.dragging #cat-thinking-dots,
+body[data-stretching] #cat-thinking-dots,
+body[data-drinking] #cat-thinking-dots {
+  display: none;
+}
+
+/* 타이핑 중이라도 에이전트가 생각중이면 생각중 점은 계속 보여준다
+   (위 data-press 숨김보다 구체적이라 우선 적용). 화면 덮기(스트레칭/물마시기) 때는 유지 숨김. */
+body[data-thinking][data-press] #cat-thinking-dots {
+  display: flex;
+}
+
+@keyframes ai-jump {
+  0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+  50% { transform: translateX(-50%) translateY(-18px) scale(1.04); }
+}
+
+@keyframes ai-bubble-pop {
+  0% { opacity: 0; transform: translateY(6px); }
+  15%, 85% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-4px); }
+}
+
+@keyframes thinking-dot {
+  0%, 25% { opacity: 0.25; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+  75%, 100% { opacity: 0.45; transform: translateY(0); }
+}
+

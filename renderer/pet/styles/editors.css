@@ -1,0 +1,153 @@
+#cat-name-editor,
+#user-name-editor,
+#pomodoro-focus-editor,
+#share-duration-editor {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: none;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 4px;
+  width: min(88vw, 220px);
+  padding: 5px;
+  border: 2px solid rgba(0, 0, 0, 0.8);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.96);
+  box-sizing: border-box;
+}
+
+#cat-name-editor {
+  top: calc(var(--cat-top) + var(--cat-size) + 12px);
+}
+
+body[data-editing-name] #cat-name-editor {
+  display: grid;
+}
+
+#user-name-editor {
+  top: calc(var(--cat-top) + var(--cat-size) + 12px);
+  grid-template-columns: minmax(0, 1fr);
+  width: min(92vw, 320px);
+}
+
+body[data-editing-user-name] #user-name-editor {
+  display: grid;
+}
+
+#user-name-guide {
+  display: none;
+}
+
+.user-name-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 4px;
+}
+
+#fixed-message-editor {
+  display: none;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 4px;
+  width: min(100vw, 400px);
+  margin: 0 auto;
+  padding: 6px 8px;
+  border: 1px solid #000;
+  border-radius: 0;
+  background: #fff;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+body[data-editing-fixed-message] #cat-speech-bubble-container {
+  display: block;
+  pointer-events: auto;
+}
+
+body[data-editing-fixed-message] #cat-speech-bubble {
+  display: none;
+}
+
+body[data-editing-fixed-message] #fixed-message-editor {
+  display: grid;
+}
+
+#pomodoro-focus-editor {
+  top: 4px;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+}
+
+body[data-editing-pomodoro-focus] #pomodoro-focus-editor {
+  display: grid;
+}
+
+#share-duration-editor {
+  top: calc(var(--cat-top) + 28%);
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+}
+
+body[data-editing-share-duration] #share-duration-editor {
+  display: grid;
+}
+
+#pomodoro-focus-editor span,
+#share-duration-editor span {
+  align-self: center;
+  color: #171717;
+  font: 700 10px/1 "Galmuri11", "NeoDunggeunmo", "DungGeunMo", "Silkscreen", Monaco, Menlo, monospace;
+}
+
+#cat-name-input,
+#user-name-input,
+#fixed-message-input,
+#pomodoro-focus-input,
+#share-duration-input {
+  min-width: 0;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 0;
+  padding: 4px 6px;
+  font: 600 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+#cat-name-editor button,
+#user-name-editor button,
+#fixed-message-editor button,
+#pomodoro-focus-editor button,
+#share-duration-editor button {
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 0;
+  background: #171717;
+  color: #fff;
+  font: 700 11px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  padding: 0 7px;
+}
+
+#fixed-message-editor button,
+#user-name-editor button,
+#share-duration-editor button {
+  cursor: pointer;
+}
+
+#cat-name-editor button,
+#user-name-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  padding: 0;
+  cursor: pointer;
+}
+
+#cat-name-editor button svg,
+#user-name-save svg {
+  display: block;
+  width: 12px;
+  height: 12px;
+  shape-rendering: crispEdges;
+}
+
+#cat-name-editor button:hover,
+#user-name-save:hover {
+  cursor: pointer;
+}
+

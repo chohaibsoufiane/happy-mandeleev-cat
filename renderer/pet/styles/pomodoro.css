@@ -1,0 +1,61 @@
+.pomodoro-timer-text {
+  display: inline-block;
+  text-align: left;
+}
+
+.pomodoro-fixed-message {
+  display: block;
+  max-width: min(88vw, 430px);
+  padding: 6px 8px;
+  cursor: text;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  text-align: center;
+}
+
+.pomodoro-timer-row {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 80px;
+  width: 100%;
+  margin: 0;
+  padding: 4px 4px 4px 6px;
+  white-space: nowrap;
+}
+
+.pomodoro-controls {
+  display: inline-flex;
+  margin-left: auto;
+  gap: 3px;
+}
+
+#cat-speech-bubble .pomodoro-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  width: 18px;
+  min-height: 18px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid currentColor;
+  background: #fff;
+  color: #111;
+  font-size: 10px;
+  line-height: 16px;
+}
+
+.pomodoro-icon {
+  display: block;
+  width: 12px;
+  height: 12px;
+  shape-rendering: crispEdges;
+}
+
+#cat-speech-bubble .pomodoro-control:hover:not(:disabled) {
+  filter: brightness(0.94);
+}

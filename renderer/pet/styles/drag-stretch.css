@@ -1,0 +1,10 @@
+/* Drag stretch(stretch-end) 모드는 typing/break stretching보다 우선 */
+body.dragging #cat,
+body.dragging #press-left,
+body.dragging #press-right,
+body.dragging #scroll-unroll,
+body.dragging #jump-start,
+body.dragging #jump-ing,
+body.dragging #stretch-pose-default,
+body.dragging #stretch-pose-ing { display: none; }
+body.dragging #stretch-svg-end { display: block; }

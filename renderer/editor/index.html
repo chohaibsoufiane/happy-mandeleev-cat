@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Comnyang Pattern Editor</title>
+  <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+  <main>
+    <section class="parts-area">
+      <div class="parts-grid-container">
+        <div id="parts-grid" aria-label="Pattern parts"></div>
+      </div>
+    </section>
+
+    <aside class="controls">
+      <div id="pattern-edit-panel" class="control-panel active">
+        <h2 data-i18n="currentPreset">Current preset</h2>
+        <div class="current-preset-row">
+          <div id="current-preset-card" class="current-preset-card"></div>
+          <button id="change-preset" class="panel-switch" type="button" data-i18n="changePreset">Change preset</button>
+        </div>
+        <h2 data-i18n="baseColor">Base body color</h2>
+        <div class="base-color-row">
+          <input type="color" id="base-color" value="#1A1A1A">
+          <span class="hex" id="base-color-hex">#1A1A1A</span>
+        </div>
+
+        <h2 style="margin-top:12px" data-i18n="eyeBgColor">Eye background</h2>
+        <div class="base-color-row" id="eye-bg-color-row">
+          <input type="color" id="eye-bg-color" value="#FFFFFF">
+          <span class="hex" id="eye-bg-color-hex">#FFFFFF</span>
+        </div>
+        <h2 style="margin-top:12px" data-i18n="eyePupilSize">Pupil size</h2>
+        <div class="range-row" id="eye-pupil-size-row">
+          <input type="range" id="eye-pupil-scale" min="40" max="140" step="5" value="100">
+          <span class="range-value" id="eye-pupil-scale-value">100%</span>
+        </div>
+        <h2 style="margin-top:12px">
+          <span data-i18n="eyeColor">Eye color</span>
+          <label class="odd-eye-toggle"><input type="checkbox" id="odd-eye"> <span data-i18n="oddEye">Odd eyes</span></label>
+        </h2>
+        <div class="base-color-row" id="eye-color-row">
+          <input type="color" id="eye-color" value="#1A1A1A">
+          <span class="hex" id="eye-color-hex">#1A1A1A</span>
+        </div>
+        <div class="base-color-row odd-eye-row" id="eye-color-left-row" style="display:none">
+          <span class="eye-label" data-i18n="left">Left</span>
+          <input type="color" id="eye-color-left" value="#1A1A1A">
+          <span class="hex" id="eye-color-left-hex">#1A1A1A</span>
+        </div>
+        <div class="base-color-row odd-eye-row" id="eye-color-right-row" style="display:none">
+          <span class="eye-label" data-i18n="right">Right</span>
+          <input type="color" id="eye-color-right" value="#1A1A1A">
+          <span class="hex" id="eye-color-right-hex">#1A1A1A</span>
+        </div>
+
+        <h2 style="margin-top:24px" data-i18n="tools">Tools</h2>
+        <div class="mode-row">
+          <button class="mode active" data-mode="paint"></button>
+          <button class="mode" data-mode="erase"></button>
+        </div>
+
+        <h2 style="margin-top:24px" data-i18n="brush">Brush</h2>
+        <div class="brush-row" id="brush-row">
+          <button class="brush active" data-size="1">1</button>
+          <button class="brush" data-size="2">2</button>
+          <button class="brush" data-size="3">3</button>
+          <button class="brush" data-size="5">5</button>
+        </div>
+
+        <div id="spot-color-section">
+          <div class="spot-color-header">
+            <h2 data-i18n="spotColor">Spot color</h2>
+            <label class="custom-color"><span data-i18n="custom">Custom</span> <input type="color" id="custom-color" value="#ffaa55"></label>
+          </div>
+          <div id="palette"></div>
+          <div class="pattern-color-adjust" id="pattern-color-adjust">
+            <div class="pattern-color-adjust-header">
+              <span data-i18n="adjustPatternColors">Adjust pattern colors</span>
+            </div>
+            <div class="pattern-color-adjust-row">
+              <span data-i18n="hue">Hue</span>
+              <button type="button" data-color-adjust="hue" data-delta="-10">-</button>
+              <button type="button" data-color-adjust="hue" data-delta="10">+</button>
+            </div>
+            <div class="pattern-color-adjust-row">
+              <span data-i18n="saturation">Saturation</span>
+              <button type="button" data-color-adjust="saturation" data-delta="-10">-</button>
+              <button type="button" data-color-adjust="saturation" data-delta="10">+</button>
+            </div>
+            <div class="pattern-color-adjust-row">
+              <span data-i18n="brightness">Brightness</span>
+              <button type="button" data-color-adjust="brightness" data-delta="-10">-</button>
+              <button type="button" data-color-adjust="brightness" data-delta="10">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="preset-actions">
+          <div class="pattern-shortcut-footer">
+            <span id="pattern-shortcut-hint" class="pattern-shortcut-hint"></span>
+          </div>
+          <div id="preset-change-actions" class="preset-change-actions">
+            <button id="discard-pattern-changes" type="button" data-i18n="discardChanges">Discard changes</button>
+            <button id="update-custom-preset" type="button" data-i18n="updateCustomPreset">Save changes</button>
+          </div>
+          <button id="save-custom-preset" type="button" data-i18n="saveCustomPreset">New Preset</button>
+          <div id="custom-preset-name-form" class="custom-preset-name-form">
+            <input id="custom-preset-name" type="text" maxlength="60" autocomplete="off" spellcheck="false" data-i18n-placeholder="customPresetNamePrompt">
+            <div class="custom-preset-name-actions">
+              <button id="cancel-custom-preset" type="button" data-i18n="cancel">Cancel</button>
+              <button id="confirm-custom-preset" type="button" data-i18n="save">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="preset-select-panel" class="control-panel">
+        <div class="panel-heading">
+          <h2 data-i18n="presets">Presets</h2>
+          <button id="back-to-edit" class="panel-back" type="button" data-i18n="backToEdit">Back</button>
+        </div>
+        <div id="preset-file-status" class="preset-file-status" aria-live="polite"></div>
+        <div id="pattern-preset-list" class="preset-list" aria-label="Pattern presets"></div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="editor.js"></script>
+</body>
+</html>

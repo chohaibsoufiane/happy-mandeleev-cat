@@ -1,0 +1,113 @@
+/* Drag stretch SVG — end.svg가 표시 SVG. rect들의 y는 stretchT에 따라 start↔end 사이를 lerp.
+   viewBox는 JS에서 -20 0 80 144 로 확장 (좌우 흔들림 여유공간) */
+#stretch-svg-end {
+  position: absolute;
+  top: var(--cat-top);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--cat-size) * 1.5);
+  /* viewBox 확장 후 비율: 80:148 (외곽선 dilate 여유 위/아래 2씩 추가) */
+  aspect-ratio: 80 / 148;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  display: none;
+}
+
+/* Press/scroll/jump SVG들 — viewBox 외곽선 여유가 포함된 별도 포즈들 */
+#press-left, #press-right, #scroll-unroll, #jump-start, #jump-ing {
+  position: absolute;
+  top: var(--cat-top);
+  left: 50%;
+  transform: translateX(-50%);
+  aspect-ratio: 1;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  display: none;
+}
+
+#press-left, #press-right, #scroll-unroll {
+  width: calc(var(--cat-size) * 0.98);
+}
+
+#jump-start, #jump-ing {
+  width: calc(var(--cat-size) * 1.12);
+}
+
+body[data-pomodoro-focus-start][data-press] #press-left,
+body[data-pomodoro-focus-start][data-press] #press-right {
+  width: calc(var(--cat-size) * 1.06);
+}
+
+body[data-press="left"] #cat { display: none; }
+body[data-press="left"] #press-left { display: block; }
+body[data-press="right"] #cat { display: none; }
+body[data-press="right"] #press-right { display: block; }
+
+body[data-scroll] #cat,
+body[data-scroll] #press-left,
+body[data-scroll] #press-right { display: none; }
+body[data-scroll] #scroll-unroll { display: block; }
+body[data-press] #scroll-unroll { display: none; }
+
+body[data-jump] #cat,
+body[data-jump] #press-left,
+body[data-jump] #press-right,
+body[data-jump] #scroll-unroll { display: none; }
+body[data-jump] #jump-start,
+body[data-jump] #jump-ing {
+  transform: translateX(-50%) translateY(var(--jump-y, 0px));
+  transition: transform 260ms cubic-bezier(0.2, 0.78, 0.25, 1);
+}
+body[data-jump="start"] #jump-start,
+body[data-jump="ing"] #jump-ing { display: block; }
+
+/* Stretching 자세 SVG — viewBox 72x56. 좌우 여백은 사냥 모드 꼬리 클리핑 방지용.
+   각 부위에 id가 붙어있어 SVG 내부 keyframes로 부위별 transform 애니메이션.
+   stretch-pose-ing.svg는 사용 안 함 (default 자세에서 transform으로 stretching 표현). */
+#stretch-pose-default {
+  position: absolute;
+  top: var(--cat-top);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  aspect-ratio: 72 / 56;
+  pointer-events: none;
+  overflow: visible;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  display: none;
+}
+#stretch-pose-ing { display: none; }
+
+body[data-stretching] #cat,
+body[data-stretching] #press-left,
+body[data-hunting] #press-left,
+body[data-stretching] #press-right,
+body[data-hunting] #press-right,
+body[data-stretching] #scroll-unroll,
+body[data-hunting] #scroll-unroll,
+body[data-stretching] #jump-start,
+body[data-hunting] #jump-start,
+body[data-stretching] #jump-ing,
+body[data-hunting] #jump-ing { display: none; }
+body[data-stretching] #stretch-pose-default { display: block; }
+
+/* 물 마시기 — 메인 cat SVG를 화면 덮은 윈도우에 크게 보여준다.
+   (스트레칭과 달리 별도 포즈 SVG 없이 cat SVG의 :root.drinking 포즈를 사용)
+   기본 #cat은 top:var(--cat-top)로 위쪽 고정이라 화면 덮기 창에선 아래가 잘린다.
+   → 정사각형 창 중앙에 두고, 음수 포즈가 viewBox 하단에 쏠려 있으므로 살짝 위로 올려
+   콤냥이 몸통이 가운데 오고 발 아래 물그릇까지 다 보이게 한다. */
+body[data-drinking] #cat {
+  width: 88%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% - 18%));
+}
+body[data-drinking] #press-left,
+body[data-drinking] #press-right,
+body[data-drinking] #scroll-unroll,
+body[data-drinking] #jump-start,
+body[data-drinking] #jump-ing,
+body[data-drinking] #stretch-pose-default { display: none; }
+

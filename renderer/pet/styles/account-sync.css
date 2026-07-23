@@ -1,0 +1,57 @@
+/* legacy 사용자 계정 연결 유도 버튼 */
+#account-nudge {
+  position: absolute;
+  left: calc(50% + var(--cat-size) * 0.28);
+  top: calc(var(--cat-top) + var(--cat-size) * 0.78);
+  z-index: 12;
+  display: none;
+  align-items: center;
+  gap: 3px;
+  pointer-events: auto;
+  -webkit-app-region: no-drag;
+}
+
+body[data-account-nudge] #account-nudge {
+  display: inline-flex;
+}
+
+#account-nudge button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid #000;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-app-region: no-drag;
+}
+
+#account-nudge-button svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  shape-rendering: crispEdges;
+}
+
+#account-nudge #account-nudge-close {
+  font-size: 12px;
+}
+
+#reminder-clock-button svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  shape-rendering: crispEdges;
+}
+
+#reminder-clock-button:active,
+#reminder-clock-button.is-pressed {
+  transform: translateY(1px);
+}

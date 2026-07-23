@@ -1,0 +1,17 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* 모든 캐릭터 SVG에 공통으로 적용되는 위쪽 padding — 머리 위 김(steam) 공간 확보 */
+:root {
+  --cat-top: 80px;
+  --cat-size: 100px;
+}
+

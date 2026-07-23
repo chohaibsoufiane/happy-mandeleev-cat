@@ -1,0 +1,276 @@
+#cat-speech-bubble-container {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% - var(--cat-top) + 4px - var(--bubble-overflow-y, 0px));
+  transform: translateX(-50%) translateY(var(--bubble-jump-y, 0px));
+  transition: transform 260ms cubic-bezier(0.2, 0.78, 0.25, 1);
+  display: none;
+  width: 100vw;
+  text-align: center;
+  pointer-events: none;
+  z-index: 6;
+}
+
+#cat-speech-bubble {
+  position: relative;
+  display: inline-block;
+  max-width: min(100vw, 400px);
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid #000;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font: 700 13px/1.1 "Galmuri11", "NeoDunggeunmo", "DungGeunMo", "Silkscreen", "Press Start 2P", Monaco, Menlo, monospace;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  pointer-events: none;
+}
+
+#cat-speech-bubble::before,
+#cat-speech-bubble::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 7px;
+  pointer-events: none;
+}
+
+#cat-speech-bubble::before {
+  bottom: -7px;
+  background: #000;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+#cat-speech-bubble::after {
+  bottom: -5px;
+  width: 7px;
+  height: 5px;
+  background: #fff;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+body[data-speech] #cat-speech-bubble-container {
+  display: block;
+}
+
+body[data-pet-peek] #cat-speech-bubble-container {
+  display: none;
+}
+
+body[data-speech] #cat-speech-bubble {
+  animation: ai-bubble-pop 1.4s steps(2, end);
+}
+
+body[data-speech="timer"] #cat-speech-bubble {
+  border-radius: 0;
+  background: #fff;
+  font-size: 13px;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  padding: 0;
+  pointer-events: auto;
+}
+
+body[data-pomodoro-mode="focus"][data-speech="timer"] #cat-speech-bubble {
+  color: #111;
+  background: #fff;
+}
+
+body[data-pomodoro-mode="focus"][data-speech="timer"] .pomodoro-timer-row {
+  color: #fff;
+  background: #e33b3b;
+}
+
+body[data-pomodoro-mode="focus"][data-speech="timer"] #cat-speech-bubble::after {
+  background: #e33b3b;
+}
+
+body[data-pomodoro-mode="rest"][data-speech="timer"] #cat-speech-bubble {
+  color: #111;
+  background: #fff;
+}
+
+body[data-pomodoro-mode="rest"][data-speech="timer"] .pomodoro-timer-row {
+  color: #fff;
+  background: #23a35b;
+}
+
+body[data-pomodoro-mode="rest"][data-speech="timer"] #cat-speech-bubble::after {
+  background: #23a35b;
+}
+
+body[data-pomodoro-paused][data-speech="timer"] #cat-speech-bubble {
+  opacity: 0.68;
+}
+
+body[data-speech="break"] #cat-speech-bubble {
+  color: #0d3d22;
+  background: #fff;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+body[data-speech="fixed"] #cat-speech-bubble {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  pointer-events: auto;
+  cursor: text;
+  -webkit-app-region: no-drag;
+}
+
+body[data-speech="focus"] #cat-speech-bubble {
+  color: #fff;
+  background: #e33b3b;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+body[data-speech="reminder"] #cat-speech-bubble,
+body[data-speech="agent-notification"] #cat-speech-bubble {
+  color: #fff;
+  background: #e33b3b;
+}
+
+body[data-speech="focus"] #cat-speech-bubble::after {
+  background: #e33b3b;
+}
+
+body[data-speech="reminder"] #cat-speech-bubble::after,
+body[data-speech="agent-notification"] #cat-speech-bubble::after {
+  background: #e33b3b;
+}
+
+body[data-speech="complete"] #cat-speech-bubble {
+  color: #fff;
+  background: #23a35b;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+body[data-speech="complete"] #cat-speech-bubble::after {
+  background: #23a35b;
+}
+
+body[data-speech="update"] #cat-speech-bubble {
+  padding: 0;
+  border: 0;
+  pointer-events: auto;
+  cursor: pointer;
+  animation: none;
+  -webkit-app-region: no-drag;
+}
+
+body[data-speech="update"] #cat-speech-bubble::before,
+body[data-speech="update"] #cat-speech-bubble::after {
+  display: none;
+}
+
+#cat-speech-bubble .update-cta-button {
+  position: relative;
+  z-index: 1;
+  border: 1px solid #fff;
+  border-radius: 0;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-app-region: no-drag;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 80ms steps(2, end);
+  will-change: transform;
+}
+
+#cat-speech-bubble .update-cta-button:active,
+#cat-speech-bubble .update-cta-button.is-pressed {
+  transform: scale(0.9);
+}
+
+#cat-speech-bubble button {
+  display: block;
+  min-width: 82px;
+  min-height: 28px;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  cursor: pointer;
+}
+
+#cat-speech-bubble button:disabled {
+  cursor: default;
+}
+
+#cat-speech-bubble button:hover:not(:disabled) {
+  cursor: pointer;
+}
+
+/* 화면 덮기 모션(물마시기/스트레칭) 때 콤냥이 머리 위에 크게 뜨는 메시지.
+   text-shadow를 사방으로 겹쳐 글자 '바깥쪽'에만 흰 외곽선을 둘러 어떤 바탕화면에서도
+   읽히게 한다(text-stroke는 글자 안쪽을 파먹어 안 씀). 텍스트라 SVG 필터 부담 없음. */
+#cover-message {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  max-width: 82%;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  color: #1b1b1b;
+  text-shadow:
+    -3px -3px 0 #fff, 0 -3px 0 #fff, 3px -3px 0 #fff,
+    -3px 0 0 #fff, 3px 0 0 #fff,
+    -3px 3px 0 #fff, 0 3px 0 #fff, 3px 3px 0 #fff,
+    -2px -3px 0 #fff, 2px -3px 0 #fff, -3px -2px 0 #fff, 3px -2px 0 #fff,
+    -3px 2px 0 #fff, 3px 2px 0 #fff, -2px 3px 0 #fff, 2px 3px 0 #fff,
+    0 0 2px #fff;
+  font: 800 clamp(18px, 5vh, 44px)/1.2 "Galmuri11", "NeoDunggeunmo", "DungGeunMo", "Silkscreen", "Press Start 2P", Monaco, Menlo, monospace;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  pointer-events: none;
+  z-index: 7;
+}
+
+/* 박스 '아래쪽'을 콤냥이 머리 위에 고정 → 줄이 늘면 위로 쌓여 콤냥이(아래)와 안 겹친다.
+   물마시기는 콤냥이가 창 중앙(머리 ~33%), 스트레칭은 더 위쪽이라 앵커를 다르게 준다. */
+body[data-drinking] #cover-message {
+  bottom: 68%;
+  display: inline-block;
+  color: #2f88ff; /* 물마시기 — 파랑 */
+  animation: cover-message-pop 0.42s cubic-bezier(0.2, 0.9, 0.25, 1.2) both;
+}
+body[data-stretching] #cover-message {
+  bottom: 80%;
+  display: inline-block;
+  color: #28a745; /* 스트레칭 — 초록 */
+  animation: cover-message-pop 0.42s cubic-bezier(0.2, 0.9, 0.25, 1.2) both;
+}
+
+/* 화면 덮기 동안엔 작은 좌표 기준의 일반 말풍선은 숨겨 겹침 방지 */
+body[data-drinking] #cat-speech-bubble-container,
+body[data-stretching] #cat-speech-bubble-container {
+  display: none !important;
+}
+
+@keyframes cover-message-pop {
+  0% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.82); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}

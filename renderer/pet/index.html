@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Comnyang</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="drag-handle"></div>
+  <div id="share-name-badge"></div>
+  <div id="cover-message" aria-hidden="true"></div>
+  <div id="cat-speech-bubble-container">
+    <div id="cat-speech-bubble"></div>
+    <form id="fixed-message-editor">
+      <input id="fixed-message-input" type="text" maxlength="80" autocomplete="off">
+      <button type="submit" id="fixed-message-save">OK</button>
+      <button type="button" id="fixed-message-cancel">×</button>
+    </form>
+  </div>
+  <div id="cat-thinking-dots" aria-label="thinking"><span>.</span><span>.</span><span>.</span></div>
+  <button id="reminder-clock-button" type="button" aria-label="Open reminders">
+    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <rect x="6" y="1" width="4" height="2" fill="currentColor"/>
+      <rect x="4" y="3" width="8" height="2" fill="currentColor"/>
+      <rect x="2" y="5" width="2" height="6" fill="currentColor"/>
+      <rect x="12" y="5" width="2" height="6" fill="currentColor"/>
+      <rect x="4" y="11" width="8" height="2" fill="currentColor"/>
+      <rect x="6" y="5" width="2" height="4" fill="currentColor"/>
+      <rect x="8" y="8" width="3" height="2" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <section id="reminder-panel" aria-label="Reminders">
+    <div class="reminder-panel-header">
+      <div id="reminder-panel-title">알림</div>
+      <div class="reminder-panel-header-actions">
+        <button type="button" id="reminder-add-button">추가</button>
+        <button type="button" id="reminder-panel-close">닫기</button>
+      </div>
+    </div>
+    <form id="reminder-form">
+      <div class="reminder-schedule-row">
+        <input id="reminder-time-input" type="time" required>
+        <input id="reminder-repeat-input" type="hidden" value="none">
+        <div id="reminder-repeat-buttons" class="reminder-repeat-buttons" role="group" aria-label="반복 설정">
+          <button type="button" data-repeat="none" class="is-selected">한 번</button>
+          <button type="button" data-repeat="custom">요일 선택</button>
+        </div>
+      </div>
+      <div id="reminder-day-picker" class="reminder-day-picker" aria-label="요일 선택">
+        <label><input type="checkbox" value="1">월</label>
+        <label><input type="checkbox" value="2">화</label>
+        <label><input type="checkbox" value="3">수</label>
+        <label><input type="checkbox" value="4">목</label>
+        <label><input type="checkbox" value="5">금</label>
+        <label><input type="checkbox" value="6">토</label>
+        <label><input type="checkbox" value="0">일</label>
+      </div>
+      <div class="reminder-message-row">
+        <input id="reminder-message-input" type="text" maxlength="80" placeholder="무엇을 알려줄까냥?" required autocomplete="off">
+        <button type="button" id="reminder-cancel-button">취소</button>
+        <button type="submit" id="reminder-save-button">저장</button>
+      </div>
+    </form>
+    <div id="reminder-list"></div>
+  </section>
+  <form id="cat-name-editor">
+    <input id="cat-name-input" type="text" maxlength="24" autocomplete="off">
+    <button type="submit" aria-label="Save name">
+      <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+        <rect x="2" y="6" width="2" height="2" fill="currentColor"/>
+        <rect x="4" y="8" width="2" height="2" fill="currentColor"/>
+        <rect x="6" y="6" width="2" height="2" fill="currentColor"/>
+        <rect x="8" y="4" width="2" height="2" fill="currentColor"/>
+      </svg>
+    </button>
+    <button type="button" id="cat-name-cancel" aria-label="Cancel name edit">
+      <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+        <rect x="3" y="3" width="2" height="2" fill="currentColor"/>
+        <rect x="7" y="3" width="2" height="2" fill="currentColor"/>
+        <rect x="5" y="5" width="2" height="2" fill="currentColor"/>
+        <rect x="3" y="7" width="2" height="2" fill="currentColor"/>
+        <rect x="7" y="7" width="2" height="2" fill="currentColor"/>
+      </svg>
+    </button>
+  </form>
+  <form id="user-name-editor">
+    <p id="user-name-guide">이름을 알려주면 콤냥이가 알림을 주거나 다양한 상황에서 사용자를 불러줄거예요.</p>
+    <div class="user-name-row">
+      <input id="user-name-input" type="text" maxlength="24" placeholder="사용자 이름을 입력해주세요" autocomplete="off">
+      <button type="submit" id="user-name-save" aria-label="Save user name">
+        <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+          <rect x="2" y="6" width="2" height="2" fill="currentColor"/>
+          <rect x="4" y="8" width="2" height="2" fill="currentColor"/>
+          <rect x="6" y="6" width="2" height="2" fill="currentColor"/>
+          <rect x="8" y="4" width="2" height="2" fill="currentColor"/>
+        </svg>
+      </button>
+      <button type="button" id="user-name-cancel">×</button>
+    </div>
+  </form>
+  <form id="pomodoro-focus-editor">
+    <input id="pomodoro-focus-input" type="number" min="1" max="180" step="1" autocomplete="off">
+    <span>MIN</span>
+    <button type="submit">OK</button>
+    <button type="button" id="pomodoro-focus-cancel">×</button>
+  </form>
+  <form id="share-duration-editor">
+    <input id="share-duration-input" type="number" min="5" max="30" step="1" autocomplete="off">
+    <span>SEC</span>
+    <button type="submit" id="share-duration-start">REC</button>
+    <button type="button" id="share-duration-cancel">×</button>
+  </form>
+  <object id="cat" type="image/svg+xml" data="../../svg/cat-idle-follow-v2.svg" aria-label="cat"></object>
+  <div id="purr-hearts" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div id="sleep-zzz" aria-hidden="true">
+    <span>Z</span>
+    <span>z</span>
+    <span>z</span>
+  </div>
+  <!-- 타이핑 heat가 높을 때 머리 위로 올라가는 빨간 김 particle들 -->
+  <div id="heat-steam">
+    <span class="steam-particle"></span>
+    <span class="steam-particle"></span>
+    <span class="steam-particle"></span>
+    <span class="steam-particle"></span>
+    <span class="steam-particle"></span>
+  </div>
+  <object id="press-left" type="image/svg+xml" data-src="../../svg/press-left.svg" aria-label="cat-typing-left"></object>
+  <object id="press-right" type="image/svg+xml" data-src="../../svg/press-right.svg" aria-label="cat-typing-right"></object>
+  <object id="scroll-unroll" type="image/svg+xml" data-src="../../svg/scroll-unroll.svg" aria-label="cat-unrolling-paper"></object>
+  <object id="jump-start" type="image/svg+xml" data-src="../../svg/jump-start.svg" aria-label="cat-jump-start"></object>
+  <object id="jump-ing" type="image/svg+xml" data-src="../../svg/jump-ing.svg" aria-label="cat-jumping"></object>
+  <object id="stretch-svg-end" type="image/svg+xml" data="../../svg/stretch-end.svg" aria-label="stretch"></object>
+  <object id="stretch-pose-default" type="image/svg+xml" data-src="../../svg/stretch-pose-default.svg" aria-label="stretching-default"></object>
+  <object id="stretch-pose-ing" type="image/svg+xml" data-src="../../svg/stretch-pose-ing.svg" aria-label="stretching-active"></object>
+  <script src="cell-mappings.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+#cat {
+  position: absolute;
+  top: var(--cat-top);
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--cat-size);
+  aspect-ratio: 1;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+}
+
+body.pet-peek-exiting #cat {
+  animation: pet-peek-hop-out 0.48s cubic-bezier(0.18, 0.9, 0.22, 1) both;
+}
+
+@keyframes pet-peek-hop-out {
+  0% {
+    transform: translateX(-50%) translateY(8%);
+  }
+  34% {
+    transform: translateX(-50%) translateY(-18%);
+  }
+  62% {
+    transform: translateX(-50%) translateY(3%);
+  }
+  78% {
+    transform: translateX(-50%) translateY(-5%);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+body[data-pet-peek] #cat,
+body[data-pet-peek] #press-left,
+body[data-pet-peek] #press-right,
+body[data-pet-peek] #scroll-unroll,
+body[data-pet-peek] #jump-start,
+body[data-pet-peek] #jump-ing,
+body[data-pet-peek] #stretch-pose-default,
+body[data-pet-peek] #stretch-pose-ing,
+body[data-pet-peek] #heat-steam,
+body[data-pet-peek] #purr-hearts,
+body[data-pet-peek] #cat-thinking-dots,
+body[data-pet-peek] #reminder-clock-button,
+body[data-pet-peek] #account-nudge,
+body[data-pet-peek] #reminder-panel,
+body[data-pet-peek] #cat-name-editor,
+body[data-pet-peek] #user-name-editor,
+body[data-pet-peek] #share-duration-editor {
+  display: none;
+}
+
+body[data-pet-peek] #press-left {
+  display: block;
+  transform: translateX(-50%);
+  transform-origin: center center;
+}
+
+body[data-pet-peek="left"] #press-left {
+  transform: translateX(-50%) scaleX(-1);
+}

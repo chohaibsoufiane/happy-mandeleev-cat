@@ -1,0 +1,80 @@
+/* drag region — 캐릭터 영역(윈도우 가운데 절반의 정사각형) */
+#drag-handle {
+  position: absolute;
+  top: calc(var(--cat-top) - var(--cat-size) * 0.15);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--cat-size) * 1.3);
+  aspect-ratio: 1;
+  cursor: grab;
+}
+#drag-handle:active {
+  cursor: grabbing;
+}
+body.dragging #drag-handle {
+  width: calc(var(--cat-size) * 1.5);
+  aspect-ratio: 80 / 148;
+}
+
+#share-name-badge {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--cat-top) + var(--cat-size) + 5px);
+  transform: translateX(-50%);
+  display: none;
+  max-width: 80%;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #171717;
+  font: 700 11px/1.1 "Galmuri11", "NeoDunggeunmo", "DungGeunMo", "Silkscreen", "Press Start 2P", Monaco, Menlo, monospace;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-font-smoothing: none;
+  text-shadow:
+    -2px -2px 0 #fff,
+    -1px -2px 0 #fff,
+    0 -2px 0 #fff,
+    1px -2px 0 #fff,
+    2px -2px 0 #fff,
+    -2px -1px 0 #fff,
+    2px -1px 0 #fff,
+    -2px 0 0 #fff,
+    2px 0 0 #fff,
+    -2px 1px 0 #fff,
+    2px 1px 0 #fff,
+    -2px 2px 0 #fff,
+    -1px 2px 0 #fff,
+    0 2px 0 #fff,
+    1px 2px 0 #fff,
+    2px 2px 0 #fff;
+  font-smooth: never;
+  pointer-events: none;
+  z-index: 5;
+}
+
+body[data-sharing] #share-name-badge,
+body[data-show-name] #share-name-badge {
+  display: none !important;
+}
+
+body.dragging #share-name-badge {
+  display: none;
+}
+
+body[data-stretching] #share-name-badge,
+body[data-drinking] #share-name-badge {
+  display: none;
+}
+
+body[data-pet-peek] #share-name-badge {
+  display: none;
+}
+
+body[data-editing-name] #share-name-badge {
+  display: none;
+}
+

@@ -1,0 +1,55 @@
+#purr-hearts {
+  position: absolute;
+  top: calc(var(--cat-top) - 2%);
+  left: 50%;
+  width: var(--cat-size);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  pointer-events: none;
+  display: none;
+  z-index: 4;
+}
+
+body[data-purring] #purr-hearts {
+  display: block;
+}
+
+#purr-hearts span {
+  position: absolute;
+  left: 42%;
+  top: 18%;
+  display: block;
+  width: 14.8%;
+  aspect-ratio: 8 / 6;
+  background: url("../../../assets/svg/heart.svg") center / contain no-repeat;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  opacity: 0;
+  transform: translate(0, 0) scale(0.6);
+  animation: purr-heart-pop 1.4s steps(4, end) infinite paused;
+}
+
+body[data-purring] #purr-hearts span {
+  animation-play-state: running;
+}
+
+#purr-hearts span:nth-child(2) {
+  left: 53%;
+  top: 16%;
+  width: 11.8%;
+  animation-delay: 0.24s;
+}
+
+#purr-hearts span:nth-child(3) {
+  left: 36%;
+  top: 23%;
+  width: 10%;
+  animation-delay: 0.48s;
+}
+
+@keyframes purr-heart-pop {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.55); }
+  18% { opacity: 1; transform: translate(0, -7px) scale(1); }
+  62% { opacity: 1; transform: translate(5px, -22px) scale(0.9); }
+  100% { opacity: 0; transform: translate(9px, -34px) scale(0.65); }
+}

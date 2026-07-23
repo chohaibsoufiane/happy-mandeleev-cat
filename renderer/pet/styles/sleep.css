@@ -1,0 +1,61 @@
+#sleep-zzz {
+  position: absolute;
+  top: calc(var(--cat-top) + 11%);
+  left: 50%;
+  width: var(--cat-size);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  pointer-events: none;
+  display: none;
+  z-index: 4;
+}
+
+body[data-idle-sleep] #sleep-zzz {
+  display: block;
+}
+
+#sleep-zzz span {
+  position: absolute;
+  left: 46%;
+  top: 13%;
+  color: #111;
+  font: 700 14px/1 "Galmuri11", "NeoDunggeunmo", "DungGeunMo", "Silkscreen", "Press Start 2P", Monaco, Menlo, monospace;
+  opacity: 0;
+  text-shadow:
+    0 -1px 0 #fff,
+    -1px 0 0 #fff,
+    1px 0 0 #fff,
+    0 1px 0 #fff;
+  transform: translate(0, 0) scale(0.7);
+  animation: sleep-zzz-float 3s steps(4, end) infinite paused;
+}
+
+body[data-idle-sleep] #sleep-zzz span {
+  animation-play-state: running;
+}
+
+#sleep-zzz span:nth-child(2) {
+  left: 55%;
+  top: 8%;
+  font-size: 11px;
+  animation-delay: 0.55s;
+}
+
+#sleep-zzz span:nth-child(3) {
+  left: 39%;
+  top: 19%;
+  font-size: 9px;
+  animation-delay: 1.1s;
+}
+
+body[data-idle-sleep] #purr-hearts,
+body[data-idle-wake] #purr-hearts {
+  display: none;
+}
+
+@keyframes sleep-zzz-float {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.62); }
+  16% { opacity: 1; transform: translate(0, -5px) scale(1); }
+  58% { opacity: 1; transform: translate(5px, -21px) scale(0.92); }
+  100% { opacity: 0; transform: translate(10px, -35px) scale(0.66); }
+}

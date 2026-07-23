@@ -6008,9 +6008,9 @@ var Zu = F((Ke) => {
       constructor(t, e = {}, r, n) {
         let s = new URL(t);
         n?.useNewHostname &&
-          /supabase\.(co|in|red)$/.test(s.hostname) &&
-          !s.hostname.includes("storage.supabase.") &&
-          (s.hostname = s.hostname.replace("supabase.", "storage.supabase."));
+          /localstore\.(co|in|red)$/.test(s.hostname) &&
+          !s.hostname.includes("storage.localstore.") &&
+          (s.hostname = s.hostname.replace("localstore.", "storage.localstore."));
         let o = s.href.replace(/\/$/, ""),
           i = le(le({}, Ss), e);
         super(o, i, r, "storage");
@@ -6545,11 +6545,11 @@ var Ao = F((Ee) => {
   Ee.EXPIRY_MARGIN_MS =
     Ee.AUTO_REFRESH_TICK_THRESHOLD * Ee.AUTO_REFRESH_TICK_DURATION_MS;
   Ee.GOTRUE_URL = "http://localhost:9999";
-  Ee.STORAGE_KEY = "supabase.auth.token";
+  Ee.STORAGE_KEY = "localstore.auth.token";
   Ee.AUDIENCE = "";
   Ee.DEFAULT_HEADERS = { "X-Client-Info": `gotrue-js/${D_.version}` };
   Ee.NETWORK_FAILURE = { MAX_RETRIES: 10, RETRY_INTERVAL: 2 };
-  Ee.API_VERSION_HEADER_NAME = "X-Supabase-Api-Version";
+  Ee.API_VERSION_HEADER_NAME = "X-localstore-Api-Version";
   Ee.API_VERSIONS = {
     "2024-01-01": {
       timestamp: Date.parse("2024-01-01T00:00:00.0Z"),
@@ -6688,7 +6688,7 @@ var Fr = F((de) => {
   var _a = class extends ht {
     constructor() {
       super(
-        "PKCE code verifier not found in storage. This can happen if the auth flow was initiated in a different browser or device, or if the storage was cleared. For SSR frameworks (Next.js, SvelteKit, etc.), use @supabase/ssr on both the server and client to store the code verifier in cookies.",
+        "PKCE code verifier not found in storage. This can happen if the auth flow was initiated in a different browser or device, or if the storage was cleared. For SSR frameworks (Next.js, SvelteKit, etc.), use @localstore/ssr on both the server and client to store the code verifier in cookies.",
         "AuthPKCECodeVerifierMissingError",
         400,
         "pkce_code_verifier_not_found",
@@ -7129,13 +7129,13 @@ var An = F((fe) => {
   function _v(t) {
     if (!yv.test(t))
       throw new Error(
-        "@supabase/auth-js: Expected parameter to be UUID but is not",
+        "@localstore/auth-js: Expected parameter to be UUID but is not",
       );
   }
   function vv(t) {
     if (!t.passkey)
       throw new Error(
-        "@supabase/auth-js: the passkey API is experimental and disabled by default. Enable it by passing `auth: { experimental: { passkey: true } }` to createClient (or to the GoTrueClient constructor).",
+        "@localstore/auth-js: the passkey API is experimental and disabled by default. Enable it by passing `auth: { experimental: { passkey: true } }` to createClient (or to the GoTrueClient constructor).",
       );
   }
   function wv() {
@@ -7153,17 +7153,17 @@ var An = F((fe) => {
             return;
         }
         throw new Error(
-          `@supabase/auth-js: client was created with userStorage option and there was no user stored in the user storage. Accessing the "${r}" property of the session object is not supported. Please use getUser() instead.`,
+          `@localstore/auth-js: client was created with userStorage option and there was no user stored in the user storage. Accessing the "${r}" property of the session object is not supported. Please use getUser() instead.`,
         );
       },
       set: (e, r) => {
         throw new Error(
-          `@supabase/auth-js: client was created with userStorage option and there was no user stored in the user storage. Setting the "${r}" property of the session object is not supported. Please use getUser() to fetch a user object you can manipulate.`,
+          `@localstore/auth-js: client was created with userStorage option and there was no user stored in the user storage. Setting the "${r}" property of the session object is not supported. Please use getUser() to fetch a user object you can manipulate.`,
         );
       },
       deleteProperty: (e, r) => {
         throw new Error(
-          `@supabase/auth-js: client was created with userStorage option and there was no user stored in the user storage. Deleting the "${r}" property of the session object is not supported. Please use getUser() to fetch a user object you can manipulate.`,
+          `@localstore/auth-js: client was created with userStorage option and there was no user stored in the user storage. Deleting the "${r}" property of the session object is not supported. Please use getUser() to fetch a user object you can manipulate.`,
         );
       },
     });
@@ -7186,7 +7186,7 @@ var An = F((fe) => {
           !e.value &&
             typeof n == "string" &&
             (console.warn(
-              "Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.",
+              "Using the user object as returned from localstore.auth.getSession() or from some localstore.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use localstore.auth.getUser() instead which authenticates the data by contacting the localstore Auth server.",
             ),
             (e.value = !0)),
           Reflect.get(r, n, s)
@@ -7445,7 +7445,7 @@ var Oo = F((xa) => {
       async signOut(e, r = Oa.SIGN_OUT_SCOPES[0]) {
         if (Oa.SIGN_OUT_SCOPES.indexOf(r) < 0)
           throw new Error(
-            `@supabase/auth-js: Parameter scope must be one of ${Oa.SIGN_OUT_SCOPES.join(", ")}`,
+            `@localstore/auth-js: Parameter scope must be one of ${Oa.SIGN_OUT_SCOPES.join(", ")}`,
           );
         try {
           return (
@@ -7955,7 +7955,7 @@ var La = F((je) => {
       globalThis &&
       (0, Mv.supportsLocalStorage)() &&
       globalThis.localStorage &&
-      globalThis.localStorage.getItem("supabase.gotrue-js.locks.debug") ===
+      globalThis.localStorage.getItem("localstore.gotrue-js.locks.debug") ===
         "true"
     ),
   };
@@ -7971,7 +7971,7 @@ var La = F((je) => {
   je.ProcessLockAcquireTimeoutError = Io;
   async function Dv(t, e, r) {
     je.internals.debug &&
-      console.log("@supabase/gotrue-js: navigatorLock: acquire lock", t, e);
+      console.log("@localstore/gotrue-js: navigatorLock: acquire lock", t, e);
     let n = new globalThis.AbortController(),
       s;
     (e > 0 &&
@@ -7979,7 +7979,7 @@ var La = F((je) => {
         (n.abort(),
           je.internals.debug &&
             console.log(
-              "@supabase/gotrue-js: navigatorLock acquire timed out",
+              "@localstore/gotrue-js: navigatorLock acquire timed out",
               t,
             ));
       }, e)),
@@ -7995,7 +7995,7 @@ var La = F((je) => {
             (clearTimeout(s),
               je.internals.debug &&
                 console.log(
-                  "@supabase/gotrue-js: navigatorLock: acquired",
+                  "@localstore/gotrue-js: navigatorLock: acquired",
                   t,
                   o.name,
                 ));
@@ -8004,7 +8004,7 @@ var La = F((je) => {
             } finally {
               je.internals.debug &&
                 console.log(
-                  "@supabase/gotrue-js: navigatorLock: released",
+                  "@localstore/gotrue-js: navigatorLock: released",
                   t,
                   o.name,
                 );
@@ -8014,7 +8014,7 @@ var La = F((je) => {
               throw (
                 je.internals.debug &&
                   console.log(
-                    "@supabase/gotrue-js: navigatorLock: not immediately available",
+                    "@localstore/gotrue-js: navigatorLock: not immediately available",
                     t,
                   ),
                 new As(
@@ -8025,18 +8025,18 @@ var La = F((je) => {
               try {
                 let i = await globalThis.navigator.locks.query();
                 console.log(
-                  "@supabase/gotrue-js: Navigator LockManager state",
+                  "@localstore/gotrue-js: Navigator LockManager state",
                   JSON.stringify(i, null, "  "),
                 );
               } catch (i) {
                 console.warn(
-                  "@supabase/gotrue-js: Error when querying Navigator LockManager state",
+                  "@localstore/gotrue-js: Error when querying Navigator LockManager state",
                   i,
                 );
               }
             return (
               console.warn(
-                "@supabase/gotrue-js: Navigator LockManager returned a null lock when using #request without ifAvailable set to true, it appears this browser is not following the LockManager spec https://developer.mozilla.org/en-US/docs/Web/API/LockManager/request",
+                "@localstore/gotrue-js: Navigator LockManager returned a null lock when using #request without ifAvailable set to true, it appears this browser is not following the LockManager spec https://developer.mozilla.org/en-US/docs/Web/API/LockManager/request",
               ),
               clearTimeout(s),
               await r()
@@ -8057,11 +8057,11 @@ var La = F((je) => {
           return (
             je.internals.debug &&
               console.log(
-                "@supabase/gotrue-js: navigatorLock: acquire timeout, recovering by stealing lock",
+                "@localstore/gotrue-js: navigatorLock: acquire timeout, recovering by stealing lock",
                 t,
               ),
             console.warn(
-              `@supabase/gotrue-js: Lock "${t}" was not released within ${e}ms. This may indicate an orphaned lock from a component unmount (e.g., React Strict Mode). Forcefully acquiring the lock to recover.`,
+              `@localstore/gotrue-js: Lock "${t}" was not released within ${e}ms. This may indicate an orphaned lock from a component unmount (e.g., React Strict Mode). Forcefully acquiring the lock to recover.`,
             ),
             await Promise.resolve().then(() =>
               globalThis.navigator.locks.request(
@@ -8071,7 +8071,7 @@ var La = F((je) => {
                   if (i) {
                     je.internals.debug &&
                       console.log(
-                        "@supabase/gotrue-js: navigatorLock: recovered (stolen)",
+                        "@localstore/gotrue-js: navigatorLock: recovered (stolen)",
                         t,
                         i.name,
                       );
@@ -8080,7 +8080,7 @@ var La = F((je) => {
                     } finally {
                       je.internals.debug &&
                         console.log(
-                          "@supabase/gotrue-js: navigatorLock: released (stolen)",
+                          "@localstore/gotrue-js: navigatorLock: released (stolen)",
                           t,
                           i.name,
                         );
@@ -8088,7 +8088,7 @@ var La = F((je) => {
                   } else
                     return (
                       console.warn(
-                        "@supabase/gotrue-js: Navigator LockManager returned null lock even with steal: true",
+                        "@localstore/gotrue-js: Navigator LockManager returned null lock even with steal: true",
                       ),
                       await r()
                     );
@@ -8099,7 +8099,7 @@ var La = F((je) => {
         throw (
           je.internals.debug &&
             console.log(
-              "@supabase/gotrue-js: navigatorLock: lock was stolen by another request",
+              "@localstore/gotrue-js: navigatorLock: lock was stolen by another request",
               t,
             ),
           new As(`Lock "${t}" was released because another request stole it`)
@@ -8127,7 +8127,7 @@ var La = F((je) => {
               ? new Promise((l, d) => {
                   a = setTimeout(() => {
                     (console.warn(
-                      `@supabase/gotrue-js: Lock "${t}" acquisition timed out after ${e}ms. This may be caused by another operation holding the lock. Consider increasing lockAcquireTimeout or checking for stuck operations.`,
+                      `@localstore/gotrue-js: Lock "${t}" acquisition timed out after ${e}ms. This may be caused by another operation holding the lock. Consider increasing lockAcquireTimeout or checking for stuck operations.`,
                     ),
                       d(
                         new Io(
@@ -8191,7 +8191,7 @@ var hd = F((En) => {
   En.createSiweMessage = Bv;
   function dd(t) {
     if (!/^0x[a-fA-F0-9]{40}$/.test(t))
-      throw new Error(`@supabase/auth-js: Address "${t}" is invalid.`);
+      throw new Error(`@localstore/auth-js: Address "${t}" is invalid.`);
     return t.toLowerCase();
   }
   function Fv(t) {
@@ -8221,23 +8221,23 @@ var hd = F((En) => {
     {
       if (!Number.isInteger(r))
         throw new Error(
-          `@supabase/auth-js: Invalid SIWE message field "chainId". Chain ID must be a EIP-155 chain ID. Provided value: ${r}`,
+          `@localstore/auth-js: Invalid SIWE message field "chainId". Chain ID must be a EIP-155 chain ID. Provided value: ${r}`,
         );
       if (!n)
         throw new Error(
-          '@supabase/auth-js: Invalid SIWE message field "domain". Domain must be provided.',
+          '@localstore/auth-js: Invalid SIWE message field "domain". Domain must be provided.',
         );
       if (i && i.length < 8)
         throw new Error(
-          `@supabase/auth-js: Invalid SIWE message field "nonce". Nonce must be at least 8 characters. Provided value: ${i}`,
+          `@localstore/auth-js: Invalid SIWE message field "nonce". Nonce must be at least 8 characters. Provided value: ${i}`,
         );
       if (!u)
         throw new Error(
-          '@supabase/auth-js: Invalid SIWE message field "uri". URI must be provided.',
+          '@localstore/auth-js: Invalid SIWE message field "uri". URI must be provided.',
         );
       if (f !== "1")
         throw new Error(
-          `@supabase/auth-js: Invalid SIWE message field "version". Version must be '1'. Provided value: ${f}`,
+          `@localstore/auth-js: Invalid SIWE message field "version". Version must be '1'. Provided value: ${f}`,
         );
       if (
         !((e = t.statement) === null || e === void 0) &&
@@ -8245,7 +8245,7 @@ var hd = F((En) => {
 `)
       )
         throw new Error(
-          `@supabase/auth-js: Invalid SIWE message field "statement". Statement must not include '\\n'. Provided value: ${t.statement}`,
+          `@localstore/auth-js: Invalid SIWE message field "statement". Statement must not include '\\n'. Provided value: ${t.statement}`,
         );
     }
     let h = dd(t.address),
@@ -8284,7 +8284,7 @@ Resources:`;
       for (let S of l) {
         if (!S || typeof S != "string")
           throw new Error(
-            `@supabase/auth-js: Invalid SIWE message field "resources". Every resource must be a valid string. Provided value: ${S}`,
+            `@localstore/auth-js: Invalid SIWE message field "resources". Every resource must be a valid string. Provided value: ${S}`,
           );
         A += `
 - ${S}`;
@@ -9547,7 +9547,7 @@ var qa = F((Fa) => {
           case "solana":
             return await this.signInWithSolana(e);
           default:
-            throw new Error(`@supabase/auth-js: Unsupported chain "${r}"`);
+            throw new Error(`@localstore/auth-js: Unsupported chain "${r}"`);
         }
       }
       async signInWithEthereum(e) {
@@ -9570,13 +9570,13 @@ var qa = F((Fa) => {
                 S = m.ethereum;
               else
                 throw new Error(
-                  "@supabase/auth-js: No compatible Ethereum wallet interface on the window object (window.ethereum) detected. Make sure the user already has a wallet installed and connected for this app. Prefer passing the wallet interface object directly to signInWithWeb3({ chain: 'ethereum', wallet: resolvedUserWallet }) instead.",
+                  "@localstore/auth-js: No compatible Ethereum wallet interface on the window object (window.ethereum) detected. Make sure the user already has a wallet installed and connected for this app. Prefer passing the wallet interface object directly to signInWithWeb3({ chain: 'ethereum', wallet: resolvedUserWallet }) instead.",
                 );
             }
           else {
             if (typeof y != "object" || !A?.url)
               throw new Error(
-                "@supabase/auth-js: Both wallet and url must be specified in non-browser environments.",
+                "@localstore/auth-js: Both wallet and url must be specified in non-browser environments.",
               );
             S = y;
           }
@@ -9587,12 +9587,12 @@ var qa = F((Fa) => {
               .then((m) => m)
               .catch(() => {
                 throw new Error(
-                  "@supabase/auth-js: Wallet method eth_requestAccounts is missing or invalid",
+                  "@localstore/auth-js: Wallet method eth_requestAccounts is missing or invalid",
                 );
               });
           if (!B || B.length === 0)
             throw new Error(
-              "@supabase/auth-js: No accounts available. Please ensure the wallet is connected.",
+              "@localstore/auth-js: No accounts available. Please ensure the wallet is connected.",
             );
           let R = (0, Lo.getAddress)(B[0]),
             _ =
@@ -9712,13 +9712,13 @@ var qa = F((Fa) => {
                 D = R.solana;
               else
                 throw new Error(
-                  "@supabase/auth-js: No compatible Solana wallet interface on the window object (window.solana) detected. Make sure the user already has a wallet installed and connected for this app. Prefer passing the wallet interface object directly to signInWithWeb3({ chain: 'solana', wallet: resolvedUserWallet }) instead.",
+                  "@localstore/auth-js: No compatible Solana wallet interface on the window object (window.solana) detected. Make sure the user already has a wallet installed and connected for this app. Prefer passing the wallet interface object directly to signInWithWeb3({ chain: 'solana', wallet: resolvedUserWallet }) instead.",
                 );
             }
           else {
             if (typeof w != "object" || !S?.url)
               throw new Error(
-                "@supabase/auth-js: Both wallet and url must be specified in non-browser environments.",
+                "@localstore/auth-js: Both wallet and url must be specified in non-browser environments.",
               );
             D = w;
           }
@@ -9749,7 +9749,7 @@ var qa = F((Fa) => {
               _ = R;
             else
               throw new Error(
-                "@supabase/auth-js: Wallet method signIn() returned unrecognized value",
+                "@localstore/auth-js: Wallet method signIn() returned unrecognized value",
               );
             if (
               "signedMessage" in _ &&
@@ -9765,7 +9765,7 @@ var qa = F((Fa) => {
                 (g = _.signature));
             else
               throw new Error(
-                "@supabase/auth-js: Wallet method signIn() API returned object without signedMessage and signature fields",
+                "@localstore/auth-js: Wallet method signIn() API returned object without signedMessage and signature fields",
               );
           } else {
             if (
@@ -9778,7 +9778,7 @@ var qa = F((Fa) => {
               typeof D.publicKey.toBase58 != "function"
             )
               throw new Error(
-                "@supabase/auth-js: Wallet does not have a compatible signMessage() and publicKey.toBase58() API",
+                "@localstore/auth-js: Wallet does not have a compatible signMessage() and publicKey.toBase58() API",
               );
             p = [
               `${B.host} wants you to sign in with your Solana account:`,
@@ -9823,7 +9823,7 @@ var qa = F((Fa) => {
             let R = await D.signMessage(new TextEncoder().encode(p), "utf8");
             if (!R || !(R instanceof Uint8Array))
               throw new Error(
-                "@supabase/auth-js: Wallet signMessage() API returned an recognized value",
+                "@localstore/auth-js: Wallet signMessage() API returned an recognized value",
               );
             g = R;
           }
@@ -10764,19 +10764,19 @@ var qa = F((Fa) => {
           let p = h - u;
           p * 1e3 <= ze.AUTO_REFRESH_TICK_DURATION_MS &&
             console.warn(
-              `@supabase/gotrue-js: Session as retrieved from URL expires in ${p}s, should have been closer to ${f}s`,
+              `@localstore/gotrue-js: Session as retrieved from URL expires in ${p}s, should have been closer to ${f}s`,
             );
           let g = h - f;
           u - g >= 120
             ? console.warn(
-                "@supabase/gotrue-js: Session as retrieved from URL was issued over 120s ago, URL could be stale",
+                "@localstore/gotrue-js: Session as retrieved from URL was issued over 120s ago, URL could be stale",
                 g,
                 h,
                 u,
               )
             : u - g < 0 &&
               console.warn(
-                "@supabase/gotrue-js: Session as retrieved from URL was issued in the future? Check the device clock for skew",
+                "@localstore/gotrue-js: Session as retrieved from URL was issued in the future? Check the device clock for skew",
                 g,
                 h,
                 u,
@@ -12649,7 +12649,7 @@ var uh = F((ot) => {
     Uo,
     Od = [`runtime=${Es}`];
   Ho && Od.push(`runtime-version=${Ho}`);
-  var ww = { "X-Client-Info": `supabase-js/${vw}; ${Od.join("; ")}` },
+  var ww = { "X-Client-Info": `localstore-js/${vw}; ${Od.join("; ")}` },
     bw = { headers: ww },
     Sw = { schema: "public" },
     kw = {
@@ -13461,7 +13461,7 @@ var uh = F((ot) => {
           n.push(s.hostname);
         } catch {}
         return (
-          n.push("*.supabase.co", "*.supabase.in"),
+          n.push("*.localstore.co", "*.localstore.in"),
           n.push("localhost", "127.0.0.1", "[::1]"),
           n
         );
@@ -13650,15 +13650,15 @@ var uh = F((ot) => {
   }
   function qw(t) {
     let e = t?.trim();
-    if (!e) throw new Error("supabaseUrl is required.");
+    if (!e) throw new Error("localstoreUrl is required.");
     if (!e.match(/^https?:\/\//i))
       throw new Error(
-        "Invalid supabaseUrl: Must be a valid HTTP or HTTPS URL.",
+        "Invalid localstoreUrl: Must be a valid HTTP or HTTPS URL.",
       );
     try {
       return new URL($w(e));
     } catch {
-      throw Error("Invalid supabaseUrl: Provided URL is malformed.");
+      throw Error("Invalid localstoreUrl: Provided URL is malformed.");
     }
   }
   var Bw = class extends Va.AuthClient {
@@ -13669,9 +13669,9 @@ var uh = F((ot) => {
     lh = class {
       constructor(t, e, r) {
         var n, s;
-        ((this.supabaseUrl = t), (this.supabaseKey = e));
+        ((this.localstoreUrl = t), (this.localstoreKey = e));
         let o = qw(t);
-        if (!e) throw new Error("supabaseKey is required.");
+        if (!e) throw new Error("localstoreKey is required.");
         ((this.realtimeUrl = new URL("realtime/v1", o)),
           (this.realtimeUrl.protocol = this.realtimeUrl.protocol.replace(
             "http",
@@ -13703,14 +13703,14 @@ var uh = F((ot) => {
               {
                 get: (d, u) => {
                   throw new Error(
-                    `@supabase/supabase-js: Supabase Client is configured with the accessToken option, accessing supabase.auth.${String(u)} is not possible`,
+                    `@localstore/localstore-js: localstore Client is configured with the accessToken option, accessing localstore.auth.${String(u)} is not possible`,
                   );
                 },
               },
             )));
         else {
           var l;
-          this.auth = this._initSupabaseAuthClient(
+          this.auth = this._initlocalstoreAuthClient(
             (l = c.auth) !== null && l !== void 0 ? l : {},
             this.headers,
             c.global.fetch,
@@ -13792,9 +13792,9 @@ var uh = F((ot) => {
             ? void 0
             : r.access_token) !== null && e !== void 0
           ? e
-          : t.supabaseKey;
+          : t.localstoreKey;
       }
-      _initSupabaseAuthClient(
+      _initlocalstoreAuthClient(
         {
           autoRefreshToken: t,
           persistSession: e,
@@ -13814,8 +13814,8 @@ var uh = F((ot) => {
         p,
       ) {
         let g = {
-          Authorization: `Bearer ${this.supabaseKey}`,
-          apikey: `${this.supabaseKey}`,
+          Authorization: `Bearer ${this.localstoreKey}`,
+          apikey: `${this.localstoreKey}`,
         };
         return new Bw({
           url: this.authUrl.href,
@@ -13845,7 +13845,7 @@ var uh = F((ot) => {
           Me(
             Me({}, t),
             {},
-            { params: Me(Me({}, { apikey: this.supabaseKey }), t?.params) },
+            { params: Me(Me({}, { apikey: this.localstoreKey }), t?.params) },
           ),
         );
       }
@@ -13876,7 +13876,7 @@ var uh = F((ot) => {
   }
   Ww() &&
     console.warn(
-      "\u26A0\uFE0F  Node.js 18 and below are deprecated and will no longer be supported in future versions of @supabase/supabase-js. Please upgrade to Node.js 20 or later. For more information, visit: https://github.com/orgs/supabase/discussions/37217",
+      "\u26A0\uFE0F  Node.js 18 and below are deprecated and will no longer be supported in future versions of @localstore/localstore-js. Please upgrade to Node.js 20 or later. For more information, visit: https://github.com/orgs/localstore/discussions/37217",
     );
   Object.defineProperty(ot, "FunctionRegion", {
     enumerable: !0,
@@ -13920,7 +13920,7 @@ var uh = F((ot) => {
       return Rd.StorageApiError;
     },
   });
-  ot.SupabaseClient = lh;
+  ot.localstoreClient = lh;
   ot.__toCommonJS = Ka;
   ot.createClient = Hw;
   Object.keys(Va).forEach(function (t) {
@@ -13949,18 +13949,11 @@ var Sh = F((AP, bh) => {
   var Rs = require("fs"),
     hh = require("path"),
     Vw = require("crypto"),
-    Ja =
-      process.env.NEXT_PUBLIC_SUPABASE_URL ||
-      "https://mfffutdwodonbwujwrsv.supabase.co",
-    Ya =
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
-      "sb_publishable_D3xWF3AkqHc5ID_Lb94eyA_Jj4Ztny9",
+    Ja = "",
+    Ya = "",
     Xa = process.env.SHANKS_OAUTH_REDIRECT_URL || "shanks://auth-callback",
     Kw = {
-      v1: `-----BEGIN PUBLIC KEY-----
-MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf/WGXMsfyzrDe8xgDcu0132RBTk
-9OMmgwoVbMzdx0dO0wUZFrZJ/G6zlTsjlhJwlMFUJJQJchSNe5Pk0ZiVnA==
------END PUBLIC KEY-----`,
+      v1: "",
     },
     In = 1,
     zw = 1440 * 60 * 1e3,
@@ -14093,7 +14086,7 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf/WGXMsfyzrDe8xgDcu0132RBTk
       }
       close() {}
       send() {
-        throw new Error("Shanks does not use Supabase realtime.");
+        throw new Error("Shanks does not use localstore realtime.");
       }
       addEventListener() {}
       removeEventListener() {}
@@ -14239,14 +14232,14 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf/WGXMsfyzrDe8xgDcu0132RBTk
         headers: { apikey: Ya },
       });
     } catch (i) {
-      let a = new Error("Could not sample Supabase server time.");
+      let a = new Error("Could not sample localstore server time.");
       throw ((a.code = "network"), (a.cause = i), a);
     }
     let r = Date.now(),
       n = e.headers && e.headers.get ? e.headers.get("date") : "",
       s = Date.parse(n || "");
     if (!Number.isFinite(s)) {
-      let i = new Error("Supabase server time header was unavailable.");
+      let i = new Error("localstore server time header was unavailable.");
       throw ((i.code = "server_time_unavailable"), i);
     }
     let o = t + (r - t) / 2;
@@ -14457,10 +14450,10 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf/WGXMsfyzrDe8xgDcu0132RBTk
     loadAccount: ft,
     updateAccount: Is,
     removeAccount: gh,
-    getSupabase: Nn,
+    getlocalstore: Nn,
     getSession: Ln,
     getFreshSession: _h,
-    sampleSupabaseServerTime: tb,
+    samplelocalstoreServerTime: tb,
     startGoogleSignIn: Qw,
     signOut: Zw,
     handleAuthCallback: eb,
@@ -14558,15 +14551,15 @@ var xh = F((EP, Ih) => {
         Ah(e ? Go.join(e, "analytics.config.json") : "");
     return (
       (Ko = {
-        enabled: process.env.POSTHOG_ENABLED === "1" || r?.enabled === !0,
+        enabled: process.env.localanalytics_ENABLED === "1" || r?.enabled === !0,
         projectToken:
-          process.env.POSTHOG_PROJECT_TOKEN || r?.projectToken || "",
+          process.env.localanalytics_PROJECT_TOKEN || r?.projectToken || "",
         host: (
-          process.env.POSTHOG_HOST ||
+          process.env.localanalytics_HOST ||
           r?.host ||
-          "https://us.i.posthog.com"
+          "https://us.i.localanalytics.com"
         ).replace(/\/$/, ""),
-        debug: process.env.POSTHOG_DEBUG === "1" || r?.debug === !0,
+        debug: process.env.localanalytics_DEBUG === "1" || r?.debug === !0,
       }),
       Ko
     );
@@ -14585,7 +14578,7 @@ var xh = F((EP, Ih) => {
     if (!e.enabled || !e.projectToken) {
       e.debug &&
         Ut.info(
-          "[Shanks] analytics disabled or missing PostHog project token",
+          "[Shanks] analytics disabled or missing localanalytics project token",
         );
       return;
     }
@@ -14761,7 +14754,7 @@ var xh = F((EP, Ih) => {
         body: JSON.stringify({ api_key: e.projectToken, batch: t }),
         signal: r.signal,
       });
-      if (!s.ok) throw new Error(`PostHog batch failed: ${s.status}`);
+      if (!s.ok) throw new Error(`localanalytics batch failed: ${s.status}`);
     } finally {
       clearTimeout(n);
     }
@@ -19191,7 +19184,7 @@ Choose which version to keep. The selected version will become the version used 
         accountUnlinkFailed:
           "Could not unlink the license. Check your internet connection and try again.",
         accountUnlinkNotDeployed:
-          "The unlink-license server function is not deployed yet. Deploy it to Supabase, then try again.",
+          "The unlink-license server function is not deployed yet. Deploy it to localstore, then try again.",
         accountUnlinkNotLinked: "No license is linked to this account.",
         accountUnlinkSignedOut:
           "Sign in again, then try unlinking the license.",
@@ -19325,7 +19318,7 @@ Choose which version to keep. The selected version will become the version used 
         accountUnlinkFailed:
           "\uB77C\uC774\uC120\uC2A4 \uC5F0\uACB0\uC744 \uD574\uC81C\uD558\uC9C0 \uBABB\uD588\uC5B4\uC694. \uC778\uD130\uB137 \uC5F0\uACB0\uC744 \uD655\uC778\uD55C \uB4A4 \uB2E4\uC2DC \uC2DC\uB3C4\uD574 \uC8FC\uC138\uC694.",
         accountUnlinkNotDeployed:
-          "\uC11C\uBC84\uC758 unlink-license \uD568\uC218\uAC00 \uC544\uC9C1 \uBC30\uD3EC\uB418\uC9C0 \uC54A\uC558\uC5B4\uC694. Supabase\uC5D0 \uBC30\uD3EC\uD55C \uB4A4 \uB2E4\uC2DC \uC2DC\uB3C4\uD574 \uC8FC\uC138\uC694.",
+          "\uC11C\uBC84\uC758 unlink-license \uD568\uC218\uAC00 \uC544\uC9C1 \uBC30\uD3EC\uB418\uC9C0 \uC54A\uC558\uC5B4\uC694. localstore\uC5D0 \uBC30\uD3EC\uD55C \uB4A4 \uB2E4\uC2DC \uC2DC\uB3C4\uD574 \uC8FC\uC138\uC694.",
         accountUnlinkNotLinked:
           "\uC774 \uACC4\uC815\uC5D0 \uC5F0\uACB0\uB41C \uB77C\uC774\uC120\uC2A4\uAC00 \uC5C6\uC5B4\uC694.",
         accountUnlinkSignedOut:
@@ -19477,7 +19470,7 @@ Choose which version to keep. The selected version will become the version used 
         accountUnlinkFailed:
           "\u30E9\u30A4\u30BB\u30F3\u30B9\u9023\u643A\u3092\u89E3\u9664\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F\u3002\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u63A5\u7D9A\u3092\u78BA\u8A8D\u3057\u3066\u3001\u3082\u3046\u4E00\u5EA6\u304A\u8A66\u3057\u304F\u3060\u3055\u3044\u3002",
         accountUnlinkNotDeployed:
-          "\u30B5\u30FC\u30D0\u30FC\u306E unlink-license \u95A2\u6570\u304C\u307E\u3060\u30C7\u30D7\u30ED\u30A4\u3055\u308C\u3066\u3044\u307E\u305B\u3093\u3002Supabase \u306B\u30C7\u30D7\u30ED\u30A4\u3057\u3066\u304B\u3089\u518D\u8A66\u884C\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+          "\u30B5\u30FC\u30D0\u30FC\u306E unlink-license \u95A2\u6570\u304C\u307E\u3060\u30C7\u30D7\u30ED\u30A4\u3055\u308C\u3066\u3044\u307E\u305B\u3093\u3002localstore \u306B\u30C7\u30D7\u30ED\u30A4\u3057\u3066\u304B\u3089\u518D\u8A66\u884C\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
         accountUnlinkNotLinked:
           "\u3053\u306E\u30A2\u30AB\u30A6\u30F3\u30C8\u306B\u9023\u643A\u3055\u308C\u305F\u30E9\u30A4\u30BB\u30F3\u30B9\u306F\u3042\u308A\u307E\u305B\u3093\u3002",
         accountUnlinkSignedOut:
@@ -21263,12 +21256,12 @@ var Dp = F((uR, Mp) => {
       let K = await t.getFreshSession();
       return !K || !K.user || !K.user.id
         ? null
-        : { supabase: t.getSupabase(), userId: K.user.id };
+        : { localstore: t.getlocalstore(), userId: K.user.id };
     }
     async function re() {
       let V = await jr();
       if (!V) return null;
-      let { data: K, error: J } = await V.supabase
+      let { data: K, error: J } = await V.localstore
         .from("cat_patterns")
         .select(
           "id, name, pattern_json, is_official, sort_order, created_at, updated_at, deleted_at",
@@ -21644,7 +21637,7 @@ var Dp = F((uR, Mp) => {
         H(J));
     }
     async function zt() {
-      let V = await t.sampleSupabaseServerTime(),
+      let V = await t.samplelocalstoreServerTime(),
         K = z();
       return (
         (K.serverTimeOffsetMs = V.offsetMs),
@@ -21663,7 +21656,7 @@ var Dp = F((uR, Mp) => {
         try {
           let K = await t.getFreshSession();
           if (!K || !K.user) return;
-          let J = t.getSupabase(),
+          let J = t.getlocalstore(),
             he = K.user.id,
             Ue = z();
           (Ue.accountUserId !== he && ((Ue.accountUserId = he), H(Ue)),
@@ -21738,7 +21731,7 @@ var Dp = F((uR, Mp) => {
       clearPendingSync: Si,
       clearSyncPolling: Dm,
       downloadAccountDataToLocal: Hm,
-      getAccountSupabaseContext: jr,
+      getAccountlocalstoreContext: jr,
       loadServerPatternPresets: re,
       markPresetSyncPending: dn,
       markPresetSyncPendingIds: lr,
@@ -23797,7 +23790,7 @@ var mg = F((TR, gg) => {
     fallbackPatternPresetId: G,
     isUuid: O,
     catPatternRowPayload: L,
-    getAccountSupabaseContext: j,
+    getAccountlocalstoreContext: j,
     readJsonFile: z,
     writeJsonFile: H,
     openPatternEditor: ee,
@@ -23922,7 +23915,7 @@ var mg = F((TR, gg) => {
         try {
           let k = await j();
           if (k && O(U)) {
-            let { data: N, error: P } = await k.supabase
+            let { data: N, error: P } = await k.localstore
               .from("cat_patterns")
               .select(
                 "id, name, pattern_json, is_official, sort_order, created_at, updated_at, deleted_at",
@@ -24961,7 +24954,7 @@ var Re = null,
     clearPendingSync: rE,
     clearSyncPolling: yi,
     downloadAccountDataToLocal: nE,
-    getAccountSupabaseContext: sE,
+    getAccountlocalstoreContext: sE,
     loadServerPatternPresets: $R,
     markPresetSyncPending: oE,
     markPresetSyncPendingIds: iE,
@@ -25933,7 +25926,7 @@ nA({
   fallbackPatternPresetId: mm,
   isUuid: Mg,
   catPatternRowPayload: Dg,
-  getAccountSupabaseContext: sE,
+  getAccountlocalstoreContext: sE,
   readJsonFile: di,
   writeJsonFile: hi,
   openPatternEditor: wl,

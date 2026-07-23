@@ -13955,7 +13955,7 @@ var Sh = F((AP, bh) => {
     Ya =
       process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
       "sb_publishable_D3xWF3AkqHc5ID_Lb94eyA_Jj4Ztny9",
-    Xa = process.env.COMNYANG_OAUTH_REDIRECT_URL || "shanks://auth-callback",
+    Xa = process.env.SHANKS_OAUTH_REDIRECT_URL || "shanks://auth-callback",
     Kw = {
       v1: `-----BEGIN PUBLIC KEY-----
 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf/WGXMsfyzrDe8xgDcu0132RBTk
@@ -15399,10 +15399,10 @@ var Bh = F((OP, qh) => {
       return `${sc}://auth-callback`;
     }
     function p() {
-      if (process.env.COMNYANG_OAUTH_REDIRECT_URL)
-        return process.env.COMNYANG_OAUTH_REDIRECT_URL;
+      if (process.env.SHANKS_OAUTH_REDIRECT_URL)
+        return process.env.SHANKS_OAUTH_REDIRECT_URL;
       if (!t.isPackaged)
-        return `http://localhost:${Number.parseInt(process.env.COMNYANG_DEV_OAUTH_PORT || "3000", 10) || 3e3}/auth-callback`;
+        return `http://localhost:${Number.parseInt(process.env.SHANKS_DEV_OAUTH_PORT || "3000", 10) || 3e3}/auth-callback`;
       let b = f() ? Fb : $b;
       return `http://${Ub}:${b}/auth-callback`;
     }
@@ -16034,7 +16034,7 @@ var rf = F((MP, tf) => {
       s = () => {
         n || ((n = !0), e && e());
       },
-      o = Number(process.env.COMNYANG_AGENT_STATE_PORT) || Zh,
+      o = Number(process.env.SHANKS_AGENT_STATE_PORT) || Zh,
       i = zb.request(
         {
           hostname: "127.0.0.1",
@@ -24740,7 +24740,7 @@ var {
   rs = process.platform === "darwin",
   on = process.platform === "win32",
   Kc =
-    process.env.COMNYANG_SMOKE_TEST === "1" ||
+    process.env.SHANKS_SMOKE_TEST === "1" ||
     process.argv.includes("--shanks-smoke-test"),
   Ug = "--shanks-claude-hook",
   Qc = "--shanks-antigravity-hook",

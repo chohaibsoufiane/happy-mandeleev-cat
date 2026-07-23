@@ -70,7 +70,7 @@ function createShareRecording({
     cancelRequested = false;
     const durationMs = Math.max(5000, Math.min(30000, Math.round(Number(durationSec) || 5) * 1000));
 
-    const catName = (getCurrentCatName && getCurrentCatName()) || "Comnyang";
+    const catName = (getCurrentCatName && getCurrentCatName()) || "Shanks";
 
     if (badge) badge.textContent = catName;
     document.body.dataset.sharing = "1";

@@ -13955,7 +13955,7 @@ var Sh = F((AP, bh) => {
     Ya =
       process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
       "sb_publishable_D3xWF3AkqHc5ID_Lb94eyA_Jj4Ztny9",
-    Xa = process.env.COMNYANG_OAUTH_REDIRECT_URL || "comnyang://auth-callback",
+    Xa = process.env.COMNYANG_OAUTH_REDIRECT_URL || "shanks://auth-callback",
     Kw = {
       v1: `-----BEGIN PUBLIC KEY-----
 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf/WGXMsfyzrDe8xgDcu0132RBTk
@@ -14093,7 +14093,7 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf/WGXMsfyzrDe8xgDcu0132RBTk
       }
       close() {}
       send() {
-        throw new Error("Comnyang does not use Supabase realtime.");
+        throw new Error("Shanks does not use Supabase realtime.");
       }
       addEventListener() {}
       removeEventListener() {}
@@ -14154,10 +14154,10 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf/WGXMsfyzrDe8xgDcu0132RBTk
   async function Zw() {
     try {
       let { error: t } = await Nn().auth.signOut({ scope: "local" });
-      t && xn.warn("[Comnyang] account sign-out failed:", t.message);
+      t && xn.warn("[Shanks] account sign-out failed:", t.message);
     } catch (t) {
       xn.warn(
-        "[Comnyang] account sign-out failed:",
+        "[Shanks] account sign-out failed:",
         t && t.message ? t.message : t,
       );
     } finally {
@@ -14180,7 +14180,7 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf/WGXMsfyzrDe8xgDcu0132RBTk
     if (n) throw new Error(n);
     let s = e.searchParams.get("code") || r.get("code");
     if (!s) throw new Error("Auth callback is missing the authorization code.");
-    xn.info("[Comnyang] exchanging auth code for session");
+    xn.info("[Shanks] exchanging auth code for session");
     let { data: o, error: i } = await Yw(
       Nn().auth.exchangeCodeForSession(s),
       "Google sign-in timed out while exchanging the auth code.",
@@ -14192,7 +14192,7 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf/WGXMsfyzrDe8xgDcu0132RBTk
     let a = o.session.user;
     return (
       Is({ userId: a.id, email: a.email || null }),
-      xn.info("[Comnyang] auth session exchange completed", {
+      xn.info("[Shanks] auth session exchange completed", {
         email: a.email || null,
       }),
       { userId: a.id, email: a.email || null }
@@ -14412,7 +14412,7 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf/WGXMsfyzrDe8xgDcu0132RBTk
         ? (vh(), { ok: !1, revoked: !0, reason: r.code })
         : r.code === "network"
           ? { ok: !1, network: !0, reason: "network" }
-          : (xn.warn("[Comnyang] entitlement refresh failed:", r.message),
+          : (xn.warn("[Shanks] entitlement refresh failed:", r.message),
             { ok: !1, reason: r.code || "error" });
     }
   }
@@ -14585,13 +14585,13 @@ var xh = F((EP, Ih) => {
     if (!e.enabled || !e.projectToken) {
       e.debug &&
         Ut.info(
-          "[Comnyang] analytics disabled or missing PostHog project token",
+          "[Shanks] analytics disabled or missing PostHog project token",
         );
       return;
     }
     ((Dn = setInterval(() => Yo().catch(() => {}), lb)),
       typeof Dn.unref == "function" && Dn.unref(),
-      e.debug && Ut.info("[Comnyang] analytics initialized", { host: e.host }));
+      e.debug && Ut.info("[Shanks] analytics initialized", { host: e.host }));
   }
   function tc(t) {
     let e = String(t || "").trim();
@@ -14691,7 +14691,7 @@ var xh = F((EP, Ih) => {
     if (!Ch.has(t))
       return (
         n.debug &&
-          Ut.warn("[Comnyang] analytics event dropped:", {
+          Ut.warn("[Shanks] analytics event dropped:", {
             event: t,
             reason: "event-not-allowed",
           }),
@@ -14700,7 +14700,7 @@ var xh = F((EP, Ih) => {
     if (!n.enabled || !n.projectToken)
       return (
         n.debug &&
-          Ut.info("[Comnyang] analytics event dropped:", {
+          Ut.info("[Shanks] analytics event dropped:", {
             event: t,
             reason: "disabled",
           }),
@@ -14711,7 +14711,7 @@ var xh = F((EP, Ih) => {
       if (!s)
         return (
           n.debug &&
-            Ut.warn("[Comnyang] analytics event dropped:", {
+            Ut.warn("[Shanks] analytics event dropped:", {
               event: t,
               reason: "missing-distinct-id",
             }),
@@ -14730,7 +14730,7 @@ var xh = F((EP, Ih) => {
           timestamp: new Date().toISOString(),
         }),
         n.debug &&
-          Ut.info("[Comnyang] analytics event queued", {
+          Ut.info("[Shanks] analytics event queued", {
             event: t,
             queueLength: Vr.length,
           }),
@@ -14740,7 +14740,7 @@ var xh = F((EP, Ih) => {
     } catch (s) {
       return (
         Ut.warn(
-          "[Comnyang] analytics capture failed:",
+          "[Shanks] analytics capture failed:",
           s && s.message ? s.message : s,
         ),
         { ok: !1, reason: "capture-failed" }
@@ -14775,12 +14775,12 @@ var xh = F((EP, Ih) => {
     try {
       (await kb(e),
         t.debug &&
-          Ut.info("[Comnyang] analytics flush succeeded", { count: e.length }));
+          Ut.info("[Shanks] analytics flush succeeded", { count: e.length }));
     } catch (r) {
       ((Vr = e.concat(Vr).slice(0, 100)),
         t.debug &&
           Ut.warn(
-            "[Comnyang] analytics flush failed:",
+            "[Shanks] analytics flush failed:",
             r && r.message ? r.message : r,
           ));
     } finally {
@@ -14929,7 +14929,7 @@ var Dh = F((PP, Mh) => {
         .createHash("sha256")
         .update(
           [
-            t.getName ? t.getName() : "Comnyang",
+            t.getName ? t.getName() : "Shanks",
             process.platform,
             process.arch,
             nc.hostname() || "",
@@ -14951,7 +14951,7 @@ var Dh = F((PP, Mh) => {
           };
       } catch (m) {
         n(
-          "[Comnyang] safeStorage license binding unavailable:",
+          "[Shanks] safeStorage license binding unavailable:",
           m && m.message ? m.message : m,
         );
       }
@@ -15026,7 +15026,7 @@ var Dh = F((PP, Mh) => {
     }
     function A() {
       let R = nc.hostname() || "Computer";
-      return `Comnyang ${e ? "macOS" : r ? "Windows" : process.platform} - ${R}`;
+      return `Shanks ${e ? "macOS" : r ? "Windows" : process.platform} - ${R}`;
     }
     async function S(R, _, T = {}) {
       let m;
@@ -15041,7 +15041,7 @@ var Dh = F((PP, Mh) => {
         });
       } catch (b) {
         let C = b && b.cause;
-        n("[Comnyang] license server request failed:", {
+        n("[Shanks] license server request failed:", {
           endpoint: R,
           message: b && b.message ? b.message : String(b),
           causeCode: C && C.code,
@@ -15174,7 +15174,7 @@ var $h = F((RP, Uh) => {
     }
     async function x(j) {
       if (!D(j)) {
-        A("[Comnyang] deep link ignored; not an oauth callback", B(j));
+        A("[Shanks] deep link ignored; not an oauth callback", B(j));
         return;
       }
       T({ step: "signing-in" });
@@ -15184,7 +15184,7 @@ var $h = F((RP, Uh) => {
       try {
         ee = await t.handleAuthCallback(j);
       } catch (se) {
-        (S("[Comnyang] auth callback failed:", se && se.stack ? se.stack : se),
+        (S("[Shanks] auth callback failed:", se && se.stack ? se.stack : se),
           T({
             step: "error",
             code: "auth-failed",
@@ -15197,13 +15197,13 @@ var $h = F((RP, Uh) => {
       Q &&
         ee.userId &&
         Q !== ee.userId &&
-        (A("[Comnyang] account user changed; resetting local account data"),
+        (A("[Shanks] account user changed; resetting local account data"),
         a({ accountUserId: ee.userId }));
       try {
         await b();
       } catch (se) {
         (S(
-          "[Comnyang] post sign-in flow failed:",
+          "[Shanks] post sign-in flow failed:",
           se && se.stack ? se.stack : se,
         ),
           T({
@@ -15216,14 +15216,14 @@ var $h = F((RP, Uh) => {
     async function b() {
       let j = e();
       if (j && j.licenseKey) {
-        (A("[Comnyang] linking legacy license after Google sign-in"),
+        (A("[Shanks] linking legacy license after Google sign-in"),
           await C(j.licenseKey, { legacy: !0 }));
         return;
       }
-      A("[Comnyang] checking existing account license after Google sign-in");
+      A("[Shanks] checking existing account license after Google sign-in");
       let z = await t.adoptLinkedLicense();
       if (
-        (A("[Comnyang] existing account license check completed", {
+        (A("[Shanks] existing account license check completed", {
           ok: !!z.ok,
           notLinked: !!z.notLinked,
           network: !!z.network,
@@ -15236,7 +15236,7 @@ var $h = F((RP, Uh) => {
           await c();
         } catch (H) {
           (S(
-            "[Comnyang] account data download failed:",
+            "[Shanks] account data download failed:",
             H && H.message ? H.message : H,
           ),
             T({
@@ -15265,7 +15265,7 @@ var $h = F((RP, Uh) => {
         await t.linkLicense(j);
       } catch (H) {
         return (
-          S("[Comnyang] license link failed:", H && H.code, H && H.message),
+          S("[Shanks] license link failed:", H && H.code, H && H.message),
           T({
             step: "error",
             code: H && H.code ? H.code : "link-failed",
@@ -15279,7 +15279,7 @@ var $h = F((RP, Uh) => {
         await l();
       } catch (H) {
         S(
-          "[Comnyang] initial account data upload failed:",
+          "[Shanks] initial account data upload failed:",
           H && H.message ? H.message : H,
         );
       }
@@ -15323,7 +15323,7 @@ ${H}`
       } catch (Q) {
         return (
           S(
-            "[Comnyang] account license unlink failed:",
+            "[Shanks] account license unlink failed:",
             Q && Q.stack ? Q.stack : Q,
           ),
           j.silent ||
@@ -15373,7 +15373,7 @@ var Bh = F((OP, qh) => {
   "use strict";
   var Db = require("http"),
     Fh = require("path"),
-    sc = "comnyang",
+    sc = "shanks",
     Ub = "127.0.0.1",
     $b = 38149,
     Fb = 38150;
@@ -15465,7 +15465,7 @@ var Bh = F((OP, qh) => {
     function R(b) {
       if (b) {
         if (
-          (e("[Comnyang] deep link received", {
+          (e("[Shanks] deep link received", {
             ...S(b),
             isOAuthCallback: D(b),
             ready: d,
@@ -15477,7 +15477,7 @@ var Bh = F((OP, qh) => {
         }
         c(b).catch((C) => {
           r(
-            "[Comnyang] deep link handling failed:",
+            "[Shanks] deep link handling failed:",
             C && C.message ? C.message : C,
           );
         });
@@ -15493,7 +15493,7 @@ var Bh = F((OP, qh) => {
         C = g(p());
       if (!t.isPackaged && (C === "http" || C === "https")) {
         e(
-          "[Comnyang] deep link protocol registration skipped for loopback OAuth",
+          "[Shanks] deep link protocol registration skipped for loopback OAuth",
           { redirectUrl: p(), appName: n() },
         );
         return;
@@ -15508,11 +15508,11 @@ var Bh = F((OP, qh) => {
         } else G = t.setAsDefaultProtocolClient(b);
       } catch (O) {
         r(
-          "[Comnyang] deep link protocol registration failed:",
+          "[Shanks] deep link protocol registration failed:",
           O && O.message ? O.message : O,
         );
       }
-      e("[Comnyang] deep link protocol registration", {
+      e("[Shanks] deep link protocol registration", {
         scheme: b,
         ok: G,
         defaultApp: !!process.defaultApp,
@@ -15538,7 +15538,7 @@ var Bh = F((OP, qh) => {
               G.end("Not found"));
             return;
           }
-          e("[Comnyang] loopback oauth callback received", { url: b.pathname });
+          e("[Shanks] loopback oauth callback received", { url: b.pathname });
           let L = i(a()),
             j = o(s("oauthCallbackTitle")),
             z = o(s("oauthCallbackMessage"));
@@ -15548,7 +15548,7 @@ var Bh = F((OP, qh) => {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Comnyang</title>
+    <title>Shanks</title>
   </head>
   <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:32px;line-height:1.5;">
     <h1 style="margin:0 0 12px;font-size:28px;">${j}</h1>
@@ -15558,7 +15558,7 @@ var Bh = F((OP, qh) => {
             setImmediate(() => {
               c(O).catch((H) => {
                 r(
-                  "[Comnyang] loopback oauth callback handling failed:",
+                  "[Shanks] loopback oauth callback handling failed:",
                   H && H.stack ? H.stack : H,
                 );
               });
@@ -15566,12 +15566,12 @@ var Bh = F((OP, qh) => {
         })),
         u.on("error", (C) => {
           r(
-            "[Comnyang] loopback oauth callback server failed:",
+            "[Shanks] loopback oauth callback server failed:",
             C && C.message ? C.message : C,
           );
         }),
         u.listen(Number(b.port || 80), b.hostname, () => {
-          e("[Comnyang] loopback oauth callback server listening", {
+          e("[Shanks] loopback oauth callback server listening", {
             redirectUrl: b.href,
           });
         }));
@@ -15720,7 +15720,7 @@ var Kh = F((xP, Vh) => {
       ((f.autoDownload = !1),
         (f.autoInstallOnAppQuit = !1),
         f.on("checking-for-update", () => {
-          console.log("[Comnyang] checking for updates");
+          console.log("[Shanks] checking for updates");
         }),
         f.on("update-available", (h) => {
           a("available", h);
@@ -15744,7 +15744,7 @@ var Kh = F((xP, Vh) => {
         }),
         f.on("error", (h) => {
           (console.warn(
-            "[Comnyang] update error:",
+            "[Shanks] update error:",
             h && h.message ? h.message : h,
           ),
             e({ state: "idle" }),
@@ -15760,7 +15760,7 @@ var Kh = F((xP, Vh) => {
           : !h;
       try {
         if ((h && ((s = !0), e({ state: "checking" })), p)) {
-          console.log("[Comnyang] validating app access before update check");
+          console.log("[Shanks] validating app access before update check");
           let y = await r({
             allowOfflineLicense: g,
             refreshAccount: !0,
@@ -15769,14 +15769,14 @@ var Kh = F((xP, Vh) => {
           if (!y.ok)
             return (
               console.warn(
-                "[Comnyang] update check blocked by app access validation:",
+                "[Shanks] update check blocked by app access validation:",
                 y.reason || "access-invalid",
               ),
               h && ((s = !1), e({ state: "idle" })),
               { ok: !1, reason: y.reason || "access-invalid" }
             );
           console.log(
-            "[Comnyang] app access validation passed before update check",
+            "[Shanks] app access validation passed before update check",
             y.offline ? "(offline)" : "",
           );
         }
@@ -15817,7 +15817,7 @@ var Kh = F((xP, Vh) => {
             ((n = !1),
               (f.autoInstallOnAppQuit = !1),
               console.warn(
-                "[Comnyang] update install failed:",
+                "[Shanks] update install failed:",
                 h && h.message ? h.message : h,
               ),
               e({ state: "available" }));
@@ -15883,7 +15883,7 @@ var Gh = F((NP, zh) => {
         Q();
       } catch (se) {
         S(
-          `[Comnyang] ${ee} failed to start:`,
+          `[Shanks] ${ee} failed to start:`,
           se && se.message ? se.message : se,
         );
       }
@@ -15897,7 +15897,7 @@ var Gh = F((NP, zh) => {
         O("drink timer", l),
         O("reminder timer", f),
         D("startup").catch((Q) => {
-          S("[Comnyang] startup sync failed:", Q && Q.message ? Q.message : Q);
+          S("[Shanks] startup sync failed:", Q && Q.message ? Q.message : Q);
         }));
       let ee = b(R);
       ee && ee.close();
@@ -15920,7 +15920,7 @@ var Gh = F((NP, zh) => {
           ee - x < A ||
             ((x = ee),
             D("wake").catch((Q) => {
-              S("[Comnyang] wake sync failed:", Q && Q.message ? Q.message : Q);
+              S("[Shanks] wake sync failed:", Q && Q.message ? Q.message : Q);
             }));
         });
     }
@@ -15952,7 +15952,7 @@ var Yh = F((LP, Jh) => {
       let h = e || r || t.requestSingleInstanceLock();
       return (
         h ||
-          (s("[Comnyang] another instance is already running; quitting", {
+          (s("[Shanks] another instance is already running; quitting", {
             appName: t.getName && t.getName(),
             userDataPath: t.getPath && t.getPath("userData"),
           }),
@@ -15971,11 +15971,11 @@ var Yh = F((LP, Jh) => {
       r ||
         (t.on("second-instance", (h, p) => {
           let g = o(p);
-          (n("[Comnyang] second-instance", { hasDeepLink: !!g }), i(g), u());
+          (n("[Shanks] second-instance", { hasDeepLink: !!g }), i(g), u());
         }),
         t.on("open-url", (h, p) => {
           (h.preventDefault(),
-            n("[Comnyang] open-url", { scheme: a(p) }),
+            n("[Shanks] open-url", { scheme: a(p) }),
             i(p));
         }),
         i(o(process.argv)));
@@ -16190,7 +16190,7 @@ var cc = F((DP, lf) => {
           cwd: s.cwd || "",
         }));
     } catch (s) {
-      r("[Comnyang] Claude hook CLI failed:", s && s.message ? s.message : s);
+      r("[Shanks] Claude hook CLI failed:", s && s.message ? s.message : s);
     }
     return (Ls(t, 0), !0);
   }
@@ -16213,7 +16213,7 @@ var cc = F((DP, lf) => {
 `));
     } catch (s) {
       (r(
-        "[Comnyang] Antigravity hook CLI failed:",
+        "[Shanks] Antigravity hook CLI failed:",
         s && s.message ? s.message : s,
       ),
         process.stdout.write(`{}
@@ -16239,7 +16239,7 @@ var cc = F((DP, lf) => {
         process.stdout.write(`${JSON.stringify(af(o))}
 `));
     } catch (s) {
-      (r("[Comnyang] Cursor hook CLI failed:", s && s.message ? s.message : s),
+      (r("[Shanks] Cursor hook CLI failed:", s && s.message ? s.message : s),
         process.stdout.write(`{}
 `));
     }
@@ -16259,7 +16259,7 @@ var cc = F((DP, lf) => {
       : n
         ? () => Zb({ app: t, cliFlag: o, logWarn: e })
         : () => Qb({ app: t, cliFlag: i, logWarn: e }))().catch((c) => {
-      (e("[Comnyang] agent hook CLI failed:", c && c.message ? c.message : c),
+      (e("[Shanks] agent hook CLI failed:", c && c.message ? c.message : c),
         (n || r) &&
           process.stdout.write(`{}
 `),
@@ -16281,13 +16281,13 @@ var wr = F((UP, hf) => {
     $t = require("path"),
     Bn = require("os"),
     { execFileSync: r0 } = require("child_process"),
-    Kr = "--comnyang-claude-hook",
-    uc = "comnyang-claude-hook.js",
-    _r = "--comnyang-antigravity-hook",
-    js = "comnyang-antigravity-hook.js",
+    Kr = "--shanks-claude-hook",
+    uc = "shanks-claude-hook.js",
+    _r = "--shanks-antigravity-hook",
+    js = "shanks-antigravity-hook.js",
     dc = "agentId='antigravity'",
-    Fn = "--comnyang-cursor-hook",
-    hc = "comnyang-cursor-hook.js",
+    Fn = "--shanks-cursor-hook",
+    hc = "shanks-cursor-hook.js",
     uf = "agentId='cursor'",
     fc = [
       "SessionStart",
@@ -16495,21 +16495,21 @@ var wr = F((UP, hf) => {
   function i0(t, e = {}) {
     if (typeof e.commandBuilder == "function") return e.commandBuilder(t);
     if (e.appCommand) return `${e.appCommand} ${Kr} ${t}`;
-    let r = e.hookScript || $t.join(__dirname, "comnyang-claude-hook.js"),
+    let r = e.hookScript || $t.join(__dirname, "shanks-claude-hook.js"),
       n = e.nodeBin || mc();
     return `${qn(n)} ${qn(r)} ${t}`;
   }
   function a0(t, e = {}) {
     if (typeof e.commandBuilder == "function") return e.commandBuilder(t);
     if (e.appCommand) return `${e.appCommand} ${_r} ${t}`;
-    let r = e.hookScript || $t.join(__dirname, "comnyang-antigravity-hook.js"),
+    let r = e.hookScript || $t.join(__dirname, "shanks-antigravity-hook.js"),
       n = e.nodeBin || mc();
     return `${qn(n)} ${qn(r)} ${t}`;
   }
   function c0(t, e = {}) {
     if (typeof e.commandBuilder == "function") return e.commandBuilder(t);
     if (e.appCommand) return `${e.appCommand} ${Fn} ${t}`;
-    let r = e.hookScript || $t.join(__dirname, "comnyang-cursor-hook.js"),
+    let r = e.hookScript || $t.join(__dirname, "shanks-cursor-hook.js"),
       n = e.nodeBin || mc();
     return `${qn(n)} ${qn(r)} ${t}`;
   }
@@ -16562,7 +16562,7 @@ var wr = F((UP, hf) => {
         t.settingsPath ||
         $t.join(Bn.homedir(), ".gemini", "config", "hooks.json"),
       r = Hn(e),
-      n = t.hookName || "comnyang",
+      n = t.hookName || "shanks",
       s = r[n] && typeof r[n] == "object" ? r[n] : {};
     ((r[n] = s), (s.enabled = s.enabled !== !1));
     let o = 0,
@@ -16673,7 +16673,7 @@ var wr = F((UP, hf) => {
         t.settingsPath ||
         $t.join(Bn.homedir(), ".gemini", "config", "hooks.json"),
       r = Hn(e),
-      n = t.hookName || "comnyang",
+      n = t.hookName || "shanks",
       s = r[n];
     if (!s || typeof s != "object") return { removed: 0, settingsPath: e };
     let o = 0,
@@ -16725,7 +16725,7 @@ var pf = F(($P, ff) => {
     } catch (n) {
       r &&
         r(
-          "[Comnyang] hook cleanup CLI failed:",
+          "[Shanks] hook cleanup CLI failed:",
           n && n.message ? n.message : n,
         );
     }
@@ -16748,7 +16748,7 @@ var _f = F((FP, yf) => {
   function m0(t) {
     return (
       gf.basename(String(t || ""), gf.extname(String(t || ""))).trim() ||
-      "Comnyang"
+      "Shanks"
     );
   }
   function y0({
@@ -16971,7 +16971,7 @@ var bf = F((qP, wf) => {
           c = (o && typeof o == "object" && o.name) || "";
         if (
           (console.log(
-            `[Comnyang] log-line codex: ${a}${c ? ` name=${c}` : ""} session=${r.sessionId} policy=${r.approvalPolicy || "?"}`,
+            `[Shanks] log-line codex: ${a}${c ? ` name=${c}` : ""} session=${r.sessionId} policy=${r.approvalPolicy || "?"}`,
           ),
           s === "session_meta" && o)
         ) {
@@ -17203,7 +17203,7 @@ var kf = F((BP, Sf) => {
           typeof n.sessionId == "string" && (r.sessionId = n.sessionId));
         let s = this._eventForObject(n, r);
         (console.log(
-          `[Comnyang] log-line claude-code: type=${n.type || "?"}${s ? ` -> ${s.state} (${s.event})` : " -> (no match)"} session=${r.sessionId || "?"}`,
+          `[Shanks] log-line claude-code: type=${n.type || "?"}${s ? ` -> ${s.state} (${s.event})` : " -> (no match)"} session=${r.sessionId || "?"}`,
         ),
           s &&
             ((s.state === "complete" && !r.activeTurn) ||
@@ -17413,7 +17413,7 @@ var Cf = F((HP, Tf) => {
       let s = this._eventForLine(e);
       (s &&
         console.log(
-          `[Comnyang] log-line antigravity: -> ${s.state} (${s.event})`,
+          `[Shanks] log-line antigravity: -> ${s.state} (${s.event})`,
         ),
         s &&
           (s.sessionId && (r.sessionId = "antigravity"),
@@ -17591,7 +17591,7 @@ var xf = F((WP, If) => {
         typeof n != "object" ||
         n.active !== !1 ||
         (console.log(
-          "[Comnyang] log-line kiro (session-state): -> complete (session-inactive)",
+          "[Shanks] log-line kiro (session-state): -> complete (session-inactive)",
         ),
         this._emit("complete", "session-inactive"),
         (this._activeAgent = !1));
@@ -17658,7 +17658,7 @@ var xf = F((WP, If) => {
       let n = this._lineTimeMs(e);
       if (n !== null && n < this._startedAtMs - Rf) return;
       let s = this._eventForLine(e);
-      (s && console.log(`[Comnyang] log-line kiro: -> ${s.state} (${s.event})`),
+      (s && console.log(`[Shanks] log-line kiro: -> ${s.state} (${s.event})`),
         s &&
           ((s.state === "complete" && !this._activeAgent) ||
             ((r.lastEventTime = Date.now()),
@@ -17831,7 +17831,7 @@ var jf = F((VP, Lf) => {
       let s = this._eventForLine(e);
       (s &&
         console.log(
-          `[Comnyang] log-line cursor (text): -> ${s.state} (${s.event})`,
+          `[Shanks] log-line cursor (text): -> ${s.state} (${s.event})`,
         ),
         s &&
           ((s.state === "complete" && !this._activeAgent) ||
@@ -17914,7 +17914,7 @@ var jf = F((VP, Lf) => {
         i > s && (s = i);
         let a = this._eventForBreadcrumb(o);
         (console.log(
-          `[Comnyang] log-line cursor (sentry): category=${o.category || "?"} message=${o.message || "?"}${a ? ` -> ${a.state} (${a.event})` : " -> (no match)"}`,
+          `[Shanks] log-line cursor (sentry): category=${o.category || "?"} message=${o.message || "?"}${a ? ` -> ${a.state} (${a.event})` : " -> (no match)"}`,
         ),
           a && this._emit(a.state, a.event, a.sessionId));
       }
@@ -18085,7 +18085,7 @@ var Uf = F((KP, Df) => {
           x0(B(), D);
         } catch (N) {
           console.warn(
-            "[Comnyang] failed to persist agent-last-used.json:",
+            "[Shanks] failed to persist agent-last-used.json:",
             N && N.message,
           );
         }
@@ -18106,15 +18106,15 @@ var Uf = F((KP, Df) => {
         M = te[N] || N;
       if (!u(M)) {
         console.log(
-          `[Comnyang] agent-state <- ${N} ${k} (${P || "?"}) IGNORED (monitoring off)`,
+          `[Shanks] agent-state <- ${N} ${k} (${P || "?"}) IGNORED (monitoring off)`,
         );
         return;
       }
       (console.log(
-        `[Comnyang] agent-state <- ${N} ${k} (${P || "?"}) session=${v.sessionId || ""}`,
+        `[Shanks] agent-state <- ${N} ${k} (${P || "?"}) session=${v.sessionId || ""}`,
       ),
         (N === "antigravity" || k === "complete" || k === "error") &&
-          s("[Comnyang] agent state event", {
+          s("[Shanks] agent state event", {
             agentId: N,
             state: k,
             event: P,
@@ -18148,7 +18148,7 @@ var Uf = F((KP, Df) => {
         ) {
           let pe = S.get(N) || 0;
           if (pe && Te - pe <= Mf) {
-            s("[Comnyang] suppressed agent notification after complete", {
+            s("[Shanks] suppressed agent notification after complete", {
               agentId: N,
               event: P,
               sessionId: ne,
@@ -18162,7 +18162,7 @@ var Uf = F((KP, Df) => {
           let pe = qe();
           if (!pe) {
             console.warn(
-              `[Comnyang] ignored agent complete without active task: ${N} ${P}`,
+              `[Shanks] ignored agent complete without active task: ${N} ${P}`,
             );
             return;
           }
@@ -18180,7 +18180,7 @@ var Uf = F((KP, Df) => {
         }),
         k === "complete"
           ? o("ai-task-complete", { agentId: N, sessionId: ne, event: P }) &&
-            s("[Comnyang] sending ai-task-complete", {
+            s("[Shanks] sending ai-task-complete", {
               agentId: N,
               sessionId: ne,
               event: P,
@@ -18249,14 +18249,14 @@ var Uf = F((KP, Df) => {
         })),
         f.on("error", (v) => {
           (console.warn(
-            "[Comnyang] agent state server unavailable:",
+            "[Shanks] agent state server unavailable:",
             v && v.message,
           ),
             (f = null));
         }),
         f.listen(r, "127.0.0.1", () => {
           console.log(
-            `[Comnyang] agent state server listening on 127.0.0.1:${r}`,
+            `[Shanks] agent state server listening on 127.0.0.1:${r}`,
           );
         }));
     }
@@ -18270,17 +18270,17 @@ var Uf = F((KP, Df) => {
           let { registerClaudeHooks: v } = wr(),
             k = He.join(t.getPath("userData"), "hooks");
           Gr.mkdirSync(k, { recursive: !0 });
-          for (let M of ["comnyang-claude-hook.js", "server-config.js"])
+          for (let M of ["shanks-claude-hook.js", "server-config.js"])
             Gr.copyFileSync(He.join(n, M), He.join(k, M));
-          let N = He.join(k, "comnyang-claude-hook.js"),
+          let N = He.join(k, "shanks-claude-hook.js"),
             P = v({ hookScript: N, commandBuilder: (M) => a(N, M) });
           (P.added || P.updated || P.removed) &&
             console.log(
-              `[Comnyang] synced Claude Code hooks (added ${P.added}, updated ${P.updated}, removed ${P.removed || 0})`,
+              `[Shanks] synced Claude Code hooks (added ${P.added}, updated ${P.updated}, removed ${P.removed || 0})`,
             );
         } catch (v) {
           console.warn(
-            "[Comnyang] failed to sync Claude Code hooks:",
+            "[Shanks] failed to sync Claude Code hooks:",
             v && v.message,
           );
         }
@@ -18293,11 +18293,11 @@ var Uf = F((KP, Df) => {
             k = v();
           k.removed &&
             console.log(
-              `[Comnyang] removed ${k.removed} Claude Code hook entries`,
+              `[Shanks] removed ${k.removed} Claude Code hook entries`,
             );
         } catch (v) {
           console.warn(
-            "[Comnyang] failed to remove Claude Code hooks:",
+            "[Shanks] failed to remove Claude Code hooks:",
             v && v.message,
           );
         }
@@ -18312,20 +18312,20 @@ var Uf = F((KP, Df) => {
           let { registerAntigravityHooks: v } = wr(),
             k = He.join(t.getPath("userData"), "hooks");
           Gr.mkdirSync(k, { recursive: !0 });
-          for (let M of ["comnyang-antigravity-hook.js", "server-config.js"])
+          for (let M of ["shanks-antigravity-hook.js", "server-config.js"])
             Gr.copyFileSync(He.join(n, M), He.join(k, M));
-          let N = He.join(k, "comnyang-antigravity-hook.js"),
+          let N = He.join(k, "shanks-antigravity-hook.js"),
             P = v({
               hookScript: N,
               commandBuilder: (M) => (e ? c("", M) : a(N, M)),
             });
           (P.added || P.updated || P.removed) &&
             console.log(
-              `[Comnyang] synced Antigravity hooks (added ${P.added}, updated ${P.updated}, removed ${P.removed || 0})`,
+              `[Shanks] synced Antigravity hooks (added ${P.added}, updated ${P.updated}, removed ${P.removed || 0})`,
             );
         } catch (v) {
           console.warn(
-            "[Comnyang] failed to sync Antigravity hooks:",
+            "[Shanks] failed to sync Antigravity hooks:",
             v && v.message,
           );
         }
@@ -18338,11 +18338,11 @@ var Uf = F((KP, Df) => {
             k = v();
           k.removed &&
             console.log(
-              `[Comnyang] removed ${k.removed} Antigravity hook entries`,
+              `[Shanks] removed ${k.removed} Antigravity hook entries`,
             );
         } catch (v) {
           console.warn(
-            "[Comnyang] failed to remove Antigravity hooks:",
+            "[Shanks] failed to remove Antigravity hooks:",
             v && v.message,
           );
         }
@@ -18357,20 +18357,20 @@ var Uf = F((KP, Df) => {
           let { registerCursorHooks: v } = wr(),
             k = He.join(t.getPath("userData"), "hooks");
           Gr.mkdirSync(k, { recursive: !0 });
-          for (let M of ["comnyang-cursor-hook.js", "server-config.js"])
+          for (let M of ["shanks-cursor-hook.js", "server-config.js"])
             Gr.copyFileSync(He.join(n, M), He.join(k, M));
-          let N = He.join(k, "comnyang-cursor-hook.js"),
+          let N = He.join(k, "shanks-cursor-hook.js"),
             P = v({
               hookScript: N,
               commandBuilder: (M) => (e ? l(M) : a(N, M)),
             });
           (P.added || P.updated || P.removed) &&
             console.log(
-              `[Comnyang] synced Cursor hooks (added ${P.added}, updated ${P.updated}, removed ${P.removed || 0})`,
+              `[Shanks] synced Cursor hooks (added ${P.added}, updated ${P.updated}, removed ${P.removed || 0})`,
             );
         } catch (v) {
           console.warn(
-            "[Comnyang] failed to sync Cursor hooks:",
+            "[Shanks] failed to sync Cursor hooks:",
             v && v.message,
           );
         }
@@ -18382,10 +18382,10 @@ var Uf = F((KP, Df) => {
           let { unregisterCursorHooks: v } = wr(),
             k = v();
           k.removed &&
-            console.log(`[Comnyang] removed ${k.removed} Cursor hook entries`);
+            console.log(`[Shanks] removed ${k.removed} Cursor hook entries`);
         } catch (v) {
           console.warn(
-            "[Comnyang] failed to remove Cursor hooks:",
+            "[Shanks] failed to remove Cursor hooks:",
             v && v.message,
           );
         }
@@ -18396,17 +18396,17 @@ var Uf = F((KP, Df) => {
           let v = bf();
           ((g = new v(_)),
             g.start(),
-            console.log("[Comnyang] Codex monitoring: ON"));
+            console.log("[Shanks] Codex monitoring: ON"));
         } catch (v) {
           console.warn(
-            "[Comnyang] Codex log monitor unavailable:",
+            "[Shanks] Codex log monitor unavailable:",
             v && v.message,
           );
         }
     }
     function H() {
       g &&
-        (g.stop(), (g = null), console.log("[Comnyang] Codex monitoring: OFF"));
+        (g.stop(), (g = null), console.log("[Shanks] Codex monitoring: OFF"));
     }
     function ee() {
       if (!(p || !u("claude")))
@@ -18414,10 +18414,10 @@ var Uf = F((KP, Df) => {
           let v = kf();
           ((p = new v(_)),
             p.start(),
-            console.log("[Comnyang] Claude Code monitoring: ON"));
+            console.log("[Shanks] Claude Code monitoring: ON"));
         } catch (v) {
           console.warn(
-            "[Comnyang] Claude Code log monitor unavailable:",
+            "[Shanks] Claude Code log monitor unavailable:",
             v && v.message,
           );
         }
@@ -18426,7 +18426,7 @@ var Uf = F((KP, Df) => {
       p &&
         (p.stop(),
         (p = null),
-        console.log("[Comnyang] Claude Code monitoring: OFF"));
+        console.log("[Shanks] Claude Code monitoring: OFF"));
     }
     function se() {
       if (!(h || !u("antigravity")))
@@ -18434,10 +18434,10 @@ var Uf = F((KP, Df) => {
           let v = Cf();
           ((h = new v(_)),
             h.start(),
-            console.log("[Comnyang] Antigravity monitoring: ON"));
+            console.log("[Shanks] Antigravity monitoring: ON"));
         } catch (v) {
           console.warn(
-            "[Comnyang] Antigravity log monitor unavailable:",
+            "[Shanks] Antigravity log monitor unavailable:",
             v && v.message,
           );
         }
@@ -18446,7 +18446,7 @@ var Uf = F((KP, Df) => {
       h &&
         (h.stop(),
         (h = null),
-        console.log("[Comnyang] Antigravity monitoring: OFF"));
+        console.log("[Shanks] Antigravity monitoring: OFF"));
     }
     function oe() {
       if (!(y || !u("kiro")))
@@ -18454,17 +18454,17 @@ var Uf = F((KP, Df) => {
           let v = xf();
           ((y = new v(_)),
             y.start(),
-            console.log("[Comnyang] Kiro monitoring: ON"));
+            console.log("[Shanks] Kiro monitoring: ON"));
         } catch (v) {
           console.warn(
-            "[Comnyang] Kiro log monitor unavailable:",
+            "[Shanks] Kiro log monitor unavailable:",
             v && v.message,
           );
         }
     }
     function ae() {
       y &&
-        (y.stop(), (y = null), console.log("[Comnyang] Kiro monitoring: OFF"));
+        (y.stop(), (y = null), console.log("[Shanks] Kiro monitoring: OFF"));
     }
     function I() {
       if (!(w || !u("cursor")))
@@ -18472,10 +18472,10 @@ var Uf = F((KP, Df) => {
           let v = jf();
           ((w = new v(_)),
             w.start(),
-            console.log("[Comnyang] Cursor monitoring: ON"));
+            console.log("[Shanks] Cursor monitoring: ON"));
         } catch (v) {
           console.warn(
-            "[Comnyang] Cursor log monitor unavailable:",
+            "[Shanks] Cursor log monitor unavailable:",
             v && v.message,
           );
         }
@@ -18484,7 +18484,7 @@ var Uf = F((KP, Df) => {
       w &&
         (w.stop(),
         (w = null),
-        console.log("[Comnyang] Cursor monitoring: OFF"));
+        console.log("[Shanks] Cursor monitoring: OFF"));
     }
     let Z = {
         cursor: ["cursor"],
@@ -18532,7 +18532,7 @@ var Uf = F((KP, Df) => {
         try {
           N();
         } catch (P) {
-          s(`[Comnyang] agent integration '${k}' failed:`, {
+          s(`[Shanks] agent integration '${k}' failed:`, {
             message: P && P.message ? P.message : String(P),
           });
         }
@@ -18603,7 +18603,7 @@ var Bf = F((zP, qf) => {
       ({ uIOhook: p } = require("uiohook-napi"));
     } catch (O) {
       c(
-        "[Comnyang] uiohook-napi is unavailable:",
+        "[Shanks] uiohook-napi is unavailable:",
         O && O.message ? O.message : O,
       );
     }
@@ -18615,7 +18615,7 @@ var Bf = F((zP, qf) => {
       let O = [...(d() ? [] : [["CommandOrControl+J", () => u()]])];
       for (let [L, j] of O)
         r.register(L, j) ||
-          console.warn(`[Comnyang] failed to register shortcut: ${L}`);
+          console.warn(`[Shanks] failed to register shortcut: ${L}`);
     }
     function R(O) {
       t &&
@@ -18632,7 +18632,7 @@ var Bf = F((zP, qf) => {
       } catch (O) {
         return (
           console.warn(
-            "[Comnyang] accessibility permission check failed:",
+            "[Shanks] accessibility permission check failed:",
             O && O.message,
           ),
           !1
@@ -18704,7 +18704,7 @@ var Bf = F((zP, qf) => {
         L.isDestroyed() ||
         (A ||
           ((A = !0),
-          a("[Comnyang] global wheel hook received", {
+          a("[Shanks] global wheel hook received", {
             amount: O && typeof O.amount == "number" ? O.amount : null,
             direction: O && typeof O.direction == "number" ? O.direction : null,
             rotation: O && typeof O.rotation == "number" ? O.rotation : null,
@@ -18717,7 +18717,7 @@ var Bf = F((zP, qf) => {
       if (!g) {
         if (!p) {
           (console.warn(
-            "[Comnyang] global input hook unavailable: uiohook-napi is not loaded",
+            "[Shanks] global input hook unavailable: uiohook-napi is not loaded",
           ),
             x());
           return;
@@ -18740,10 +18740,10 @@ var Bf = F((zP, qf) => {
             p.start(),
             (g = !0),
             w && (clearInterval(w), (w = null)),
-            console.log("[Comnyang] global input hook started"));
+            console.log("[Shanks] global input hook started"));
         } catch (O) {
           (console.warn(
-            "[Comnyang] global key hook unavailable:",
+            "[Shanks] global key hook unavailable:",
             O && O.message,
           ),
             t ? (_() ? m() : T()) : x(),
@@ -18980,7 +18980,7 @@ var Gf = F((JP, zf) => {
   "use strict";
   var H0 = require("fs"),
     Vf = require("path"),
-    Kf = "Comnyang";
+    Kf = "Shanks";
   function W0() {
     if (process.platform !== "darwin" || process.defaultApp) return "";
     let e = String(process.execPath || "")
@@ -19137,13 +19137,13 @@ Caused by: ${f}`;
           typeof l.on == "function" &&
           l.on("error", (d) => {
             (d && (d.code === "EPIPE" || d.code === "ERR_STREAM_DESTROYED")) ||
-              n("error", ["[Comnyang] stdio stream error:", d]);
+              n("error", ["[Shanks] stdio stream error:", d]);
           });
       (process.on("uncaughtException", (l) => {
-        a("[Comnyang] uncaught exception:", l);
+        a("[Shanks] uncaught exception:", l);
       }),
         process.on("unhandledRejection", (l) => {
-          a("[Comnyang] unhandled rejection:", l);
+          a("[Shanks] unhandled rejection:", l);
         }));
     }
     return {
@@ -19166,18 +19166,18 @@ var np = F((ZP, rp) => {
         licenseActivateFailed: "We could not activate this license key.",
         licenseNetworkFailed:
           "Could not reach the license server. Check your internet connection, DNS, VPN, or proxy settings, then try again.",
-        licenseWindowTitle: "Comnyang License",
+        licenseWindowTitle: "Shanks License",
         oauthCallbackTitle: "Google sign-in is complete",
         oauthCallbackMessage:
-          "Return to the Comnyang app. You can close this browser window.",
-        syncConflictTitle: "Comnyang sync",
-        syncConflictMessage: `This Comnyang pattern changed on this device and another device.
+          "Return to the Shanks app. You can close this browser window.",
+        syncConflictTitle: "Shanks sync",
+        syncConflictMessage: `This Shanks pattern changed on this device and another device.
 Choose which version to keep. The selected version will become the version used across all devices.`,
         syncConflictUseLocal: "Use this device's version",
         syncConflictUseServer: "Use server version",
         syncConflictKeepBoth: "Keep both",
-        syncConflictKeptCopyName: "Comnyang (other device)",
-        accountLinkMenu: "Connect Comnyang account",
+        syncConflictKeptCopyName: "Shanks (other device)",
+        accountLinkMenu: "Connect Shanks account",
         accountSyncedAs: (t) => `Synced with ${t}`,
         accountSyncNow: "Sync now",
         account: "Account",
@@ -19195,14 +19195,14 @@ Choose which version to keep. The selected version will become the version used 
         accountUnlinkNotLinked: "No license is linked to this account.",
         accountUnlinkSignedOut:
           "Sign in again, then try unlinking the license.",
-        patternEditorTitle: "Comnyang Pattern Editor",
-        mappingEditorTitle: "Comnyang Cell Mapping Editor",
-        appMenuAbout: "About Comnyang",
+        patternEditorTitle: "Shanks Pattern Editor",
+        mappingEditorTitle: "Shanks Cell Mapping Editor",
+        appMenuAbout: "About Shanks",
         appMenuQuit: "Quit",
         checkForUpdates: "Check for Updates",
         editMenu: "Edit",
-        contextTitle: "Comnyang",
-        moveToCenter: "Move Comnyang to Center",
+        contextTitle: "Shanks",
+        moveToCenter: "Move Shanks to Center",
         peekMode: "Peek mode",
         peekLeft: "Peek from left",
         peekRight: "Peek from right",
@@ -19220,11 +19220,11 @@ Choose which version to keep. The selected version will become the version used 
         drinkNow: "Drink water now",
         jump: "Jump (test)",
         jumpNow: "Jump now (test)",
-        shareCat: "Show off my Comnyang",
+        shareCat: "Show off my Shanks",
         name: "Name",
         setUserName: "Tell my name",
-        setCatName: "Set Comnyang name",
-        showCatName: "Show Comnyang name",
+        setCatName: "Set Shanks name",
+        showCatName: "Show Shanks name",
         fixedMessage: "Fixed message",
         reminders: "Reminders",
         remindersOpen: "Open reminders",
@@ -19267,13 +19267,13 @@ Choose which version to keep. The selected version will become the version used 
         japanese: "\u65E5\u672C\u8A9E",
         settings: "Settings",
         accessibilityPermissionTitle: "Accessibility permission needed",
-        accessibilityPermissionMessage: "Allow Comnyang to react to typing",
+        accessibilityPermissionMessage: "Allow Shanks to react to typing",
         accessibilityPermissionDetail:
-          "Turn on Comnyang in Accessibility, then restart Comnyang if typing reactions do not start.",
+          "Turn on Shanks in Accessibility, then restart Shanks if typing reactions do not start.",
         inputPermissionTitle: "Input Monitoring may be needed",
-        inputPermissionMessage: "Comnyang still cannot detect typing",
+        inputPermissionMessage: "Shanks still cannot detect typing",
         inputPermissionDetail:
-          "Some macOS environments also require Input Monitoring. Add Comnyang in Input Monitoring, then restart Comnyang if typing reactions do not start.",
+          "Some macOS environments also require Input Monitoring. Add Shanks in Input Monitoring, then restart Shanks if typing reactions do not start.",
         openInputMonitoring: "Open Input Monitoring",
         openAccessibility: "Open Accessibility",
         shareVideoTitle: "Share video",
@@ -19281,9 +19281,9 @@ Choose which version to keep. The selected version will become the version used 
         shareRecordingFailed: "Could not make the share video.",
         globalInputPermissionTitle: "Input monitoring unavailable",
         globalInputPermissionMessage:
-          "Comnyang cannot detect keyboard or wheel input",
+          "Shanks cannot detect keyboard or wheel input",
         globalInputPermissionDetail:
-          "Restart Comnyang and check whether Windows security software or system policy is blocking global input hooks.",
+          "Restart Shanks and check whether Windows security software or system policy is blocking global input hooks.",
         reset: "Reset",
         clear: "Clear",
         delete: "Delete",
@@ -19296,7 +19296,7 @@ Choose which version to keep. The selected version will become the version used 
           "\uB77C\uC774\uC120\uC2A4\uB97C \uD65C\uC131\uD654\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.",
         licenseNetworkFailed:
           "\uB77C\uC774\uC120\uC2A4 \uC11C\uBC84\uC5D0 \uC5F0\uACB0\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4. \uC778\uD130\uB137 \uC5F0\uACB0, DNS, VPN \uB610\uB294 \uD504\uB85D\uC2DC \uC124\uC815\uC744 \uD655\uC778\uD55C \uB4A4 \uB2E4\uC2DC \uC2DC\uB3C4\uD574 \uC8FC\uC138\uC694.",
-        licenseWindowTitle: "Comnyang \uB77C\uC774\uC120\uC2A4",
+        licenseWindowTitle: "Shanks \uB77C\uC774\uC120\uC2A4",
         oauthCallbackTitle:
           "Google \uB85C\uADF8\uC778\uC774 \uC644\uB8CC\uB418\uC5C8\uC2B5\uB2C8\uB2E4",
         oauthCallbackMessage:
@@ -19334,11 +19334,11 @@ Choose which version to keep. The selected version will become the version used 
           "\uCF64\uB0E5\uC774 \uD328\uD134 \uD3B8\uC9D1\uAE30",
         mappingEditorTitle:
           "\uCF64\uB0E5\uC774 \uC140 \uB9E4\uD551 \uD3B8\uC9D1\uAE30",
-        appMenuAbout: "Comnyang\uC5D0 \uAD00\uD558\uC5EC",
+        appMenuAbout: "Shanks\uC5D0 \uAD00\uD558\uC5EC",
         appMenuQuit: "\uC885\uB8CC",
         checkForUpdates: "\uC5C5\uB370\uC774\uD2B8 \uD655\uC778",
         editMenu: "\uD3B8\uC9D1",
-        contextTitle: "Comnyang",
+        contextTitle: "Shanks",
         moveToCenter: "\uD654\uBA74 \uAC00\uC6B4\uB370\uB85C \uC774\uB3D9",
         peekMode: "\uBE7C\uAF3C \uBAA8\uB4DC",
         peekLeft: "\uC67C\uCABD\uC5D0\uC11C \uBE7C\uAF3C",
@@ -19414,13 +19414,13 @@ Choose which version to keep. The selected version will become the version used 
         accessibilityPermissionMessage:
           "\uCF64\uB0E5\uC774\uAC00 \uD0C0\uC774\uD551\uC5D0 \uBC18\uC751\uD558\uB3C4\uB85D \uD5C8\uC6A9\uD574 \uC8FC\uC138\uC694",
         accessibilityPermissionDetail:
-          "\uC190\uC26C\uC6B4 \uC0AC\uC6A9\uC5D0\uC11C Comnyang\uC744 \uCF1C \uC8FC\uC138\uC694. \uD0C0\uC774\uD551 \uBC18\uC751\uC774 \uBC14\uB85C \uC2DC\uC791\uB418\uC9C0 \uC54A\uC73C\uBA74 \uCF64\uB0E5\uC774\uB97C \uB2E4\uC2DC \uC2E4\uD589\uD574 \uC8FC\uC138\uC694.",
+          "\uC190\uC26C\uC6B4 \uC0AC\uC6A9\uC5D0\uC11C Shanks\uC744 \uCF1C \uC8FC\uC138\uC694. \uD0C0\uC774\uD551 \uBC18\uC751\uC774 \uBC14\uB85C \uC2DC\uC791\uB418\uC9C0 \uC54A\uC73C\uBA74 \uCF64\uB0E5\uC774\uB97C \uB2E4\uC2DC \uC2E4\uD589\uD574 \uC8FC\uC138\uC694.",
         inputPermissionTitle:
           "\uC785\uB825 \uBAA8\uB2C8\uD130\uB9C1\uC774 \uD544\uC694\uD560 \uC218 \uC788\uC5B4\uC694",
         inputPermissionMessage:
           "\uCF64\uB0E5\uC774\uAC00 \uC544\uC9C1 \uD0A4\uBCF4\uB4DC \uC785\uB825\uC744 \uAC10\uC9C0\uD558\uC9C0 \uBABB\uD558\uACE0 \uC788\uC5B4\uC694",
         inputPermissionDetail:
-          "\uC77C\uBD80 macOS \uD658\uACBD\uC5D0\uC11C\uB294 \uC785\uB825 \uBAA8\uB2C8\uD130\uB9C1\uB3C4 \uD544\uC694\uD574\uC694. \uC785\uB825 \uBAA8\uB2C8\uD130\uB9C1\uC5D0 Comnyang\uC744 \uCD94\uAC00\uD55C \uB4A4, \uD0C0\uC774\uD551 \uBC18\uC751\uC774 \uC2DC\uC791\uB418\uC9C0 \uC54A\uC73C\uBA74 \uCF64\uB0E5\uC774\uB97C \uB2E4\uC2DC \uC2E4\uD589\uD574 \uC8FC\uC138\uC694.",
+          "\uC77C\uBD80 macOS \uD658\uACBD\uC5D0\uC11C\uB294 \uC785\uB825 \uBAA8\uB2C8\uD130\uB9C1\uB3C4 \uD544\uC694\uD574\uC694. \uC785\uB825 \uBAA8\uB2C8\uD130\uB9C1\uC5D0 Shanks\uC744 \uCD94\uAC00\uD55C \uB4A4, \uD0C0\uC774\uD551 \uBC18\uC751\uC774 \uC2DC\uC791\uB418\uC9C0 \uC54A\uC73C\uBA74 \uCF64\uB0E5\uC774\uB97C \uB2E4\uC2DC \uC2E4\uD589\uD574 \uC8FC\uC138\uC694.",
         openInputMonitoring:
           "\uC785\uB825 \uBAA8\uB2C8\uD130\uB9C1 \uC5F4\uAE30",
         openAccessibility: "\uC190\uC26C\uC6B4 \uC0AC\uC6A9 \uC5F4\uAE30",
@@ -19431,9 +19431,9 @@ Choose which version to keep. The selected version will become the version used 
         globalInputPermissionTitle:
           "\uC785\uB825 \uAC10\uC9C0\uB97C \uC0AC\uC6A9\uD560 \uC218 \uC5C6\uC5B4\uC694",
         globalInputPermissionMessage:
-          "Comnyang\uC774 \uD0A4\uBCF4\uB4DC \uB610\uB294 \uD720 \uC785\uB825\uC744 \uAC10\uC9C0\uD558\uC9C0 \uBABB\uD558\uACE0 \uC788\uC5B4\uC694",
+          "Shanks\uC774 \uD0A4\uBCF4\uB4DC \uB610\uB294 \uD720 \uC785\uB825\uC744 \uAC10\uC9C0\uD558\uC9C0 \uBABB\uD558\uACE0 \uC788\uC5B4\uC694",
         globalInputPermissionDetail:
-          "Comnyang\uC744 \uB2E4\uC2DC \uC2E4\uD589\uD574 \uBCF4\uC138\uC694. \uACC4\uC18D \uC2E4\uD328\uD558\uBA74 Windows \uBCF4\uC548 \uD504\uB85C\uADF8\uB7A8\uC774\uB098 \uC2DC\uC2A4\uD15C \uC815\uCC45\uC774 \uC804\uC5ED \uC785\uB825 \uD6C4\uD0B9\uC744 \uB9C9\uACE0 \uC788\uB294\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.",
+          "Shanks\uC744 \uB2E4\uC2DC \uC2E4\uD589\uD574 \uBCF4\uC138\uC694. \uACC4\uC18D \uC2E4\uD328\uD558\uBA74 Windows \uBCF4\uC548 \uD504\uB85C\uADF8\uB7A8\uC774\uB098 \uC2DC\uC2A4\uD15C \uC815\uCC45\uC774 \uC804\uC5ED \uC785\uB825 \uD6C4\uD0B9\uC744 \uB9C9\uACE0 \uC788\uB294\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.",
         reset: "\uCD08\uAE30\uD654",
         clear: "\uC9C0\uC6B0\uAE30",
         delete: "\uC0AD\uC81C",
@@ -19446,13 +19446,13 @@ Choose which version to keep. The selected version will become the version used 
           "\u3053\u306E\u30E9\u30A4\u30BB\u30F3\u30B9\u30AD\u30FC\u3092\u6709\u52B9\u5316\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F\u3002",
         licenseNetworkFailed:
           "\u30E9\u30A4\u30BB\u30F3\u30B9\u30B5\u30FC\u30D0\u30FC\u306B\u63A5\u7D9A\u3067\u304D\u307E\u305B\u3093\u3002\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u63A5\u7D9A\u3001DNS\u3001VPN\u3001\u307E\u305F\u306F\u30D7\u30ED\u30AD\u30B7\u8A2D\u5B9A\u3092\u78BA\u8A8D\u3057\u3066\u304B\u3089\u3001\u3082\u3046\u4E00\u5EA6\u304A\u8A66\u3057\u304F\u3060\u3055\u3044\u3002",
-        licenseWindowTitle: "Comnyang \u30E9\u30A4\u30BB\u30F3\u30B9",
+        licenseWindowTitle: "Shanks \u30E9\u30A4\u30BB\u30F3\u30B9",
         oauthCallbackTitle:
           "Google \u30ED\u30B0\u30A4\u30F3\u304C\u5B8C\u4E86\u3057\u307E\u3057\u305F",
         oauthCallbackMessage:
-          "Comnyang \u30A2\u30D7\u30EA\u306B\u623B\u3063\u3066\u304F\u3060\u3055\u3044\u3002\u3053\u306E\u30D6\u30E9\u30A6\u30B6\u30A6\u30A3\u30F3\u30C9\u30A6\u306F\u9589\u3058\u3066\u3082\u304B\u307E\u3044\u307E\u305B\u3093\u3002",
-        syncConflictTitle: "Comnyang \u540C\u671F",
-        syncConflictMessage: `\u3053\u306E Comnyang \u306E\u6A21\u69D8\u304C\u3001\u3053\u306E\u30C7\u30D0\u30A4\u30B9\u3068\u5225\u306E\u30C7\u30D0\u30A4\u30B9\u306E\u4E21\u65B9\u3067\u5909\u66F4\u3055\u308C\u307E\u3057\u305F\u3002
+          "Shanks \u30A2\u30D7\u30EA\u306B\u623B\u3063\u3066\u304F\u3060\u3055\u3044\u3002\u3053\u306E\u30D6\u30E9\u30A6\u30B6\u30A6\u30A3\u30F3\u30C9\u30A6\u306F\u9589\u3058\u3066\u3082\u304B\u307E\u3044\u307E\u305B\u3093\u3002",
+        syncConflictTitle: "Shanks \u540C\u671F",
+        syncConflictMessage: `\u3053\u306E Shanks \u306E\u6A21\u69D8\u304C\u3001\u3053\u306E\u30C7\u30D0\u30A4\u30B9\u3068\u5225\u306E\u30C7\u30D0\u30A4\u30B9\u306E\u4E21\u65B9\u3067\u5909\u66F4\u3055\u308C\u307E\u3057\u305F\u3002
 \u3069\u3061\u3089\u306E\u30D0\u30FC\u30B8\u30E7\u30F3\u3092\u4F7F\u3046\u304B\u9078\u3093\u3067\u304F\u3060\u3055\u3044\u3002\u9078\u629E\u3057\u305F\u30D0\u30FC\u30B8\u30E7\u30F3\u304C\u3059\u3079\u3066\u306E\u30C7\u30D0\u30A4\u30B9\u3067\u4F7F\u7528\u3055\u308C\u307E\u3059\u3002`,
         syncConflictUseLocal:
           "\u3053\u306E\u30C7\u30D0\u30A4\u30B9\u306E\u30D0\u30FC\u30B8\u30E7\u30F3\u3092\u4F7F\u7528",
@@ -19460,8 +19460,8 @@ Choose which version to keep. The selected version will become the version used 
           "\u30B5\u30FC\u30D0\u30FC\u306E\u30D0\u30FC\u30B8\u30E7\u30F3\u3092\u4F7F\u7528",
         syncConflictKeepBoth: "\u4E21\u65B9\u6B8B\u3059",
         syncConflictKeptCopyName:
-          "Comnyang (\u5225\u306E\u30C7\u30D0\u30A4\u30B9)",
-        accountLinkMenu: "Comnyang \u30A2\u30AB\u30A6\u30F3\u30C8\u9023\u643A",
+          "Shanks (\u5225\u306E\u30C7\u30D0\u30A4\u30B9)",
+        accountLinkMenu: "Shanks \u30A2\u30AB\u30A6\u30F3\u30C8\u9023\u643A",
         accountSyncedAs: (t) => `${t} \u3067\u540C\u671F\u4E2D`,
         accountSyncNow: "\u4ECA\u3059\u3050\u540C\u671F",
         account: "\u30A2\u30AB\u30A6\u30F3\u30C8",
@@ -19483,15 +19483,15 @@ Choose which version to keep. The selected version will become the version used 
         accountUnlinkSignedOut:
           "\u3082\u3046\u4E00\u5EA6\u30ED\u30B0\u30A4\u30F3\u3057\u3066\u304B\u3089\u30E9\u30A4\u30BB\u30F3\u30B9\u9023\u643A\u3092\u89E3\u9664\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
         patternEditorTitle:
-          "Comnyang \u30D1\u30BF\u30FC\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC",
+          "Shanks \u30D1\u30BF\u30FC\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC",
         mappingEditorTitle:
-          "Comnyang \u30BB\u30EB\u30DE\u30C3\u30D4\u30F3\u30B0\u30A8\u30C7\u30A3\u30BF\u30FC",
-        appMenuAbout: "Comnyang \u306B\u3064\u3044\u3066",
+          "Shanks \u30BB\u30EB\u30DE\u30C3\u30D4\u30F3\u30B0\u30A8\u30C7\u30A3\u30BF\u30FC",
+        appMenuAbout: "Shanks \u306B\u3064\u3044\u3066",
         appMenuQuit: "\u7D42\u4E86",
         checkForUpdates:
           "\u30A2\u30C3\u30D7\u30C7\u30FC\u30C8\u3092\u78BA\u8A8D",
         editMenu: "\u7DE8\u96C6",
-        contextTitle: "Comnyang",
+        contextTitle: "Shanks",
         moveToCenter: "\u753B\u9762\u4E2D\u592E\u3078\u79FB\u52D5",
         peekMode: "\u3072\u3087\u3063\u3053\u308A\u30E2\u30FC\u30C9",
         peekLeft: "\u5DE6\u304B\u3089\u3072\u3087\u3063\u3053\u308A",
@@ -19517,11 +19517,11 @@ Choose which version to keep. The selected version will become the version used 
         jumpNow:
           "\u4ECA\u3059\u3050\u30B8\u30E3\u30F3\u30D7 (\u30C6\u30B9\u30C8)",
         shareCat:
-          "Comnyang \u3092\u81EA\u6162\u3059\u308B\u52D5\u753B\u3092\u64AE\u308B",
+          "Shanks \u3092\u81EA\u6162\u3059\u308B\u52D5\u753B\u3092\u64AE\u308B",
         name: "\u540D\u524D",
         setUserName: "\u81EA\u5206\u306E\u540D\u524D\u3092\u6559\u3048\u308B",
-        setCatName: "Comnyang \u306E\u540D\u524D\u3092\u8A2D\u5B9A",
-        showCatName: "Comnyang \u306E\u540D\u524D\u3092\u8868\u793A",
+        setCatName: "Shanks \u306E\u540D\u524D\u3092\u8A2D\u5B9A",
+        showCatName: "Shanks \u306E\u540D\u524D\u3092\u8868\u793A",
         fixedMessage: "\u56FA\u5B9A\u30E1\u30C3\u30BB\u30FC\u30B8",
         reminders: "\u901A\u77E5",
         remindersOpen: "\u901A\u77E5\u3092\u958B\u304F",
@@ -19568,15 +19568,15 @@ Choose which version to keep. The selected version will become the version used 
         accessibilityPermissionTitle:
           "\u30A2\u30AF\u30BB\u30B7\u30D3\u30EA\u30C6\u30A3\u6A29\u9650\u304C\u5FC5\u8981\u3067\u3059",
         accessibilityPermissionMessage:
-          "Comnyang \u304C\u30BF\u30A4\u30D4\u30F3\u30B0\u306B\u53CD\u5FDC\u3067\u304D\u308B\u3088\u3046\u8A31\u53EF\u3057\u3066\u304F\u3060\u3055\u3044",
+          "Shanks \u304C\u30BF\u30A4\u30D4\u30F3\u30B0\u306B\u53CD\u5FDC\u3067\u304D\u308B\u3088\u3046\u8A31\u53EF\u3057\u3066\u304F\u3060\u3055\u3044",
         accessibilityPermissionDetail:
-          "\u30A2\u30AF\u30BB\u30B7\u30D3\u30EA\u30C6\u30A3\u3067 Comnyang \u3092\u30AA\u30F3\u306B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u30BF\u30A4\u30D4\u30F3\u30B0\u53CD\u5FDC\u304C\u59CB\u307E\u3089\u306A\u3044\u5834\u5408\u306F Comnyang \u3092\u518D\u8D77\u52D5\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+          "\u30A2\u30AF\u30BB\u30B7\u30D3\u30EA\u30C6\u30A3\u3067 Shanks \u3092\u30AA\u30F3\u306B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u30BF\u30A4\u30D4\u30F3\u30B0\u53CD\u5FDC\u304C\u59CB\u307E\u3089\u306A\u3044\u5834\u5408\u306F Shanks \u3092\u518D\u8D77\u52D5\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
         inputPermissionTitle:
           "\u5165\u529B\u76E3\u8996\u304C\u5FC5\u8981\u306A\u5834\u5408\u304C\u3042\u308A\u307E\u3059",
         inputPermissionMessage:
-          "Comnyang \u304C\u307E\u3060\u30AD\u30FC\u30DC\u30FC\u30C9\u5165\u529B\u3092\u691C\u51FA\u3067\u304D\u307E\u305B\u3093",
+          "Shanks \u304C\u307E\u3060\u30AD\u30FC\u30DC\u30FC\u30C9\u5165\u529B\u3092\u691C\u51FA\u3067\u304D\u307E\u305B\u3093",
         inputPermissionDetail:
-          "\u4E00\u90E8\u306E macOS \u74B0\u5883\u3067\u306F\u5165\u529B\u76E3\u8996\u3082\u5FC5\u8981\u3067\u3059\u3002\u5165\u529B\u76E3\u8996\u306B Comnyang \u3092\u8FFD\u52A0\u3057\u3001\u30BF\u30A4\u30D4\u30F3\u30B0\u53CD\u5FDC\u304C\u59CB\u307E\u3089\u306A\u3044\u5834\u5408\u306F Comnyang \u3092\u518D\u8D77\u52D5\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+          "\u4E00\u90E8\u306E macOS \u74B0\u5883\u3067\u306F\u5165\u529B\u76E3\u8996\u3082\u5FC5\u8981\u3067\u3059\u3002\u5165\u529B\u76E3\u8996\u306B Shanks \u3092\u8FFD\u52A0\u3057\u3001\u30BF\u30A4\u30D4\u30F3\u30B0\u53CD\u5FDC\u304C\u59CB\u307E\u3089\u306A\u3044\u5834\u5408\u306F Shanks \u3092\u518D\u8D77\u52D5\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
         openInputMonitoring: "\u5165\u529B\u76E3\u8996\u3092\u958B\u304F",
         openAccessibility:
           "\u30A2\u30AF\u30BB\u30B7\u30D3\u30EA\u30C6\u30A3\u3092\u958B\u304F",
@@ -19587,9 +19587,9 @@ Choose which version to keep. The selected version will become the version used 
         globalInputPermissionTitle:
           "\u5165\u529B\u691C\u51FA\u3092\u4F7F\u7528\u3067\u304D\u307E\u305B\u3093",
         globalInputPermissionMessage:
-          "Comnyang \u304C\u30AD\u30FC\u30DC\u30FC\u30C9\u307E\u305F\u306F\u30DB\u30A4\u30FC\u30EB\u5165\u529B\u3092\u691C\u51FA\u3067\u304D\u307E\u305B\u3093",
+          "Shanks \u304C\u30AD\u30FC\u30DC\u30FC\u30C9\u307E\u305F\u306F\u30DB\u30A4\u30FC\u30EB\u5165\u529B\u3092\u691C\u51FA\u3067\u304D\u307E\u305B\u3093",
         globalInputPermissionDetail:
-          "Comnyang \u3092\u518D\u8D77\u52D5\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u89E3\u6C7A\u3057\u306A\u3044\u5834\u5408\u306F\u3001Windows \u306E\u30BB\u30AD\u30E5\u30EA\u30C6\u30A3\u30BD\u30D5\u30C8\u307E\u305F\u306F\u30B7\u30B9\u30C6\u30E0\u30DD\u30EA\u30B7\u30FC\u304C\u30B0\u30ED\u30FC\u30D0\u30EB\u5165\u529B\u30D5\u30C3\u30AF\u3092\u30D6\u30ED\u30C3\u30AF\u3057\u3066\u3044\u306A\u3044\u304B\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+          "Shanks \u3092\u518D\u8D77\u52D5\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u89E3\u6C7A\u3057\u306A\u3044\u5834\u5408\u306F\u3001Windows \u306E\u30BB\u30AD\u30E5\u30EA\u30C6\u30A3\u30BD\u30D5\u30C8\u307E\u305F\u306F\u30B7\u30B9\u30C6\u30E0\u30DD\u30EA\u30B7\u30FC\u304C\u30B0\u30ED\u30FC\u30D0\u30EB\u5165\u529B\u30D5\u30C3\u30AF\u3092\u30D6\u30ED\u30C3\u30AF\u3057\u3066\u3044\u306A\u3044\u304B\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
         reset: "\u30EA\u30BB\u30C3\u30C8",
         clear: "\u30AF\u30EA\u30A2",
         delete: "\u524A\u9664",
@@ -19786,7 +19786,7 @@ var hp = F((tR, dp) => {
           (e && (re.path = process.execPath), t.setLoginItemSettings(re));
         } catch (re) {
           r(
-            "[Comnyang] failed to update launch-at-login setting:",
+            "[Shanks] failed to update launch-at-login setting:",
             re && re.message ? re.message : re,
           );
         }
@@ -19861,7 +19861,7 @@ var hp = F((tR, dp) => {
       let ke =
         String(re || "")
           .trim()
-          .slice(0, 24) || "Comnyang";
+          .slice(0, 24) || "Shanks";
       return (G(ke), l(), ar(), { name: C(), visible: j() });
     }
     function nt(re) {
@@ -20761,7 +20761,7 @@ var Hc = F((cR, Ip) => {
     };
   }
   function AS(t) {
-    return `comnyang-pattern-${
+    return `shanks-pattern-${
       (typeof t == "string" && t.trim() ? t.trim() : "custom")
         .replace(/[^a-z0-9가-힣_-]+/gi, "-")
         .replace(/^-+|-+$/g, "")
@@ -21669,7 +21669,7 @@ var Dp = F((uR, Mp) => {
           (Ue.accountUserId !== he && ((Ue.accountUserId = he), H(Ue)),
             await zt().catch((Ye) => {
               r(
-                "[Comnyang] server time sync failed:",
+                "[Shanks] server time sync failed:",
                 Ye && Ye.message ? Ye.message : Ye,
               );
             }),
@@ -21696,7 +21696,7 @@ var Dp = F((uR, Mp) => {
             ((At = null),
               pt().catch((K) => {
                 r(
-                  "[Comnyang] background sync failed:",
+                  "[Shanks] background sync failed:",
                   K && K.message ? K.message : K,
                 );
               }));
@@ -21704,7 +21704,7 @@ var Dp = F((uR, Mp) => {
           typeof At.unref == "function" && At.unref()));
     }
     function $m(V = "manual") {
-      (e("[Comnyang] scheduling background sync:", V), to(250));
+      (e("[Shanks] scheduling background sync:", V), to(250));
     }
     function Fm() {
       return n() && t.isValidAccountLinked(t.loadAccount());
@@ -21712,10 +21712,10 @@ var Dp = F((uR, Mp) => {
     async function qm(V = "manual") {
       if (!Fm()) return { ok: !1, reason: n() ? "not-linked" : "offline" };
       try {
-        return (await pt(), e("[Comnyang] sync completed:", V), { ok: !0 });
+        return (await pt(), e("[Shanks] sync completed:", V), { ok: !0 });
       } catch (K) {
         return (
-          r("[Comnyang] sync failed:", K && K.message ? K.message : K),
+          r("[Shanks] sync failed:", K && K.message ? K.message : K),
           { ok: !1, reason: "error", message: K && K.message ? K.message : "" }
         );
       }
@@ -21766,17 +21766,17 @@ var $p = F((dR, Up) => {
       !c ||
         !c.webContents ||
         (c.webContents.on("did-fail-load", (d, u, f, h) => {
-          e(`[Comnyang] ${l} failed to load:`, {
+          e(`[Shanks] ${l} failed to load:`, {
             errorCode: u,
             errorDescription: f,
             validatedURL: h,
           });
         }),
         c.webContents.on("render-process-gone", (d, u) => {
-          e(`[Comnyang] ${l} render process gone:`, u);
+          e(`[Shanks] ${l} render process gone:`, u);
         }),
         c.on("unresponsive", () => {
-          r(`[Comnyang] ${l} window became unresponsive`);
+          r(`[Shanks] ${l} window became unresponsive`);
         }));
     }
     function i(c) {
@@ -21833,7 +21833,7 @@ var qp = F((hR, Fp) => {
             t.setActivationPolicy("accessory"));
         } catch (A) {
           i(
-            "[Comnyang] failed to apply fullscreen overlay mode:",
+            "[Shanks] failed to apply fullscreen overlay mode:",
             A && A.message ? A.message : A,
           );
         }
@@ -21859,7 +21859,7 @@ var qp = F((hR, Fp) => {
             e.existsSync(s) && t.dock.setIcon(r.createFromPath(s)));
         } catch (A) {
           i(
-            "[Comnyang] failed to apply dock branding:",
+            "[Shanks] failed to apply dock branding:",
             A && A.message ? A.message : A,
           );
         }
@@ -21880,7 +21880,7 @@ var qp = F((hR, Fp) => {
               t.setActivationPolicy("accessory"));
         } catch (A) {
           i(
-            "[Comnyang] failed to update dock visibility:",
+            "[Shanks] failed to update dock visibility:",
             A && A.message ? A.message : A,
           );
         }
@@ -22655,7 +22655,7 @@ var og = F((bR, sg) => {
     }
     function G(I) {
       let $ = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
-      return c.join(t.getPath("downloads"), `comnyang-${$}.${I}`);
+      return c.join(t.getPath("downloads"), `shanks-${$}.${I}`);
     }
     function O() {
       (B && !B.isDestroyed() && B.close(),
@@ -23021,7 +23021,7 @@ Filter: ${te}`),
               },
             );
           if (te || !Y) return { ok: !1, canceled: !0 };
-          let U = i.mkdtempSync(c.join(a.tmpdir(), "comnyang-share-")),
+          let U = i.mkdtempSync(c.join(a.tmpdir(), "shanks-share-")),
             E = c.join(U, `source.${$.extension === "mp4" ? "mp4" : "webm"}`);
           try {
             i.writeFileSync(E, Buffer.from($.bytes));
@@ -23147,7 +23147,7 @@ var ug = F((kR, lg) => {
             t(i()),
             t(a()),
             g(c()),
-            y("Comnyang"),
+            y("Shanks"),
             w(""),
             A(!0),
             S(""),
@@ -23193,7 +23193,7 @@ var hg = F((AR, dg) => {
     function c() {
       let l = [
         {
-          label: "Comnyang",
+          label: "Shanks",
           submenu: [
             { label: n("appMenuAbout"), role: "about" },
             { type: "separator" },
@@ -23608,7 +23608,7 @@ var pg = F((ER, fg) => {
           click: () => {
             ue({ manual: !0 }).catch((Be) => {
               console.warn(
-                "[Comnyang] manual update check failed:",
+                "[Shanks] manual update check failed:",
                 Be && Be.message ? Be.message : Be,
               );
             });
@@ -23675,7 +23675,7 @@ var pg = F((ER, fg) => {
             click: () => {
               rt("settings-menu").catch((De) => {
                 ln(
-                  "[Comnyang] manual sync failed:",
+                  "[Shanks] manual sync failed:",
                   De && De.message ? De.message : De,
                 );
               });
@@ -23696,7 +23696,7 @@ var pg = F((ER, fg) => {
                 click: () => {
                   pe({ showLoginWindow: !0 }).catch((De) => {
                     ln(
-                      "[Comnyang] account logout menu failed:",
+                      "[Shanks] account logout menu failed:",
                       De && De.message ? De.message : De,
                     );
                   });
@@ -23937,7 +23937,7 @@ var mg = F((TR, gg) => {
           }
         } catch (k) {
           oe(
-            "[Comnyang] server custom preset export failed:",
+            "[Shanks] server custom preset export failed:",
             k && k.message ? k.message : k,
           );
         }
@@ -23959,7 +23959,7 @@ var mg = F((TR, gg) => {
         return (
           H(W.filePath, {
             schemaVersion: 2,
-            app: "comnyang",
+            app: "shanks",
             exportedAt: new Date().toISOString(),
             preset: {
               name: (v.label && v.label.en) || "My preset",
@@ -24085,7 +24085,7 @@ var mg = F((TR, gg) => {
         } catch (Y) {
           return (
             console.warn(
-              "[Comnyang] failed to load cell mappings:",
+              "[Shanks] failed to load cell mappings:",
               Y && Y.message ? Y.message : Y,
             ),
             null
@@ -24148,7 +24148,7 @@ var _g = F((CR, yg) => {
         } catch (S) {
           throw (
             n(
-              "[Comnyang] google login start failed:",
+              "[Shanks] google login start failed:",
               S && S.stack ? S.stack : S,
             ),
             S
@@ -24282,7 +24282,7 @@ var wg = F((PR, vg) => {
         (R(G),
           G
             ? (_(), T("network-online"), x())
-            : (m(), x(), r("[Comnyang] network offline")));
+            : (m(), x(), r("[Shanks] network offline")));
       }),
       t.on("network-online", () => {
         (R(!0), _(), T("network-online"), x());
@@ -24741,15 +24741,15 @@ var {
   on = process.platform === "win32",
   Kc =
     process.env.COMNYANG_SMOKE_TEST === "1" ||
-    process.argv.includes("--comnyang-smoke-test"),
-  Ug = "--comnyang-claude-hook",
-  Qc = "--comnyang-antigravity-hook",
-  Zc = "--comnyang-cursor-hook",
+    process.argv.includes("--shanks-smoke-test"),
+  Ug = "--shanks-claude-hook",
+  Qc = "--shanks-antigravity-hook",
+  Zc = "--shanks-cursor-hook",
   vA = process.argv.includes(Ug),
   $g = process.argv.includes(Qc),
   Fg = process.argv.includes(Zc),
   qg = vA || $g || Fg,
-  Bg = "--comnyang-cleanup-hooks",
+  Bg = "--shanks-cleanup-hooks",
   wA = process.argv.includes(Bg);
 on && !process.env.PREBUILDS_ONLY && (process.env.PREBUILDS_ONLY = "1");
 var Hg = Rk(me);
@@ -24791,7 +24791,7 @@ var Re = null,
   Bt = null,
   $s = null,
   Ar = null,
-  wt = sn("assets", "comnyang-logo.png"),
+  wt = sn("assets", "shanks-logo.png"),
   TA = sn("assets", "trayTemplate.png"),
   Vg = 23456,
   {
@@ -24826,8 +24826,8 @@ var Re = null,
     getAgentMonitoringOverride: (t) => zs[t],
   }),
   tl = !0,
-  xA = "https://comnyang.com",
-  NA = "https://comnyang.com/reset-license",
+  xA = "https://shanks.com",
+  NA = "https://shanks.com/reset-license",
   LA = 48,
   jA = 96,
   MA = 48,
@@ -25570,7 +25570,7 @@ var Xr = Lg(),
   Zn = !1,
   es = !1,
   qs = [],
-  nr = "Comnyang",
+  nr = "Shanks",
   sr = "",
   Tr = !0,
   Cr = "",
@@ -25894,15 +25894,10 @@ var { createPetWindow: HT } = Gk({
     getMappingWindow: () => $s,
     getPetWindow: () => Re,
   }),
-  { checkAppAccessValidityNow: Mm, resolveStartupAndLaunch: Cg } = yk({
-    accountManager: Yr,
-    loadLicense: wi,
-    validateSavedLicense: xE,
-    licenseActivatePayload: OE,
-    returnToLicenseWindow: jm,
-    createLicenseWindow: Ys,
-    startLicensedApp: Ol,
-  });
+  { checkAppAccessValidityNow: Mm, resolveStartupAndLaunch: Cg } = {
+    checkAppAccessValidityNow: async () => {},
+    resolveStartupAndLaunch: Ol,
+  };
 nA({
   ipcMain: tn,
   dialog: Js,
@@ -26088,7 +26083,7 @@ me.whenReady().then(async () => {
   try {
     if (!gm) return;
     if (
-      (It("[Comnyang] starting", {
+      (It("[Shanks] starting", {
         version: me.getVersion(),
         platform: process.platform,
         arch: process.arch,
@@ -26099,7 +26094,7 @@ me.whenReady().then(async () => {
       }),
       Kc)
     ) {
-      (It("[Comnyang] smoke test passed"), me.quit());
+      (It("[Shanks] smoke test passed"), me.quit());
       return;
     }
     (LE(),
@@ -26138,16 +26133,16 @@ me.whenReady().then(async () => {
         }
         en.getAllWindows().length > 0 ||
           Ol().catch((e) => {
-            (Us("[Comnyang] failed to activate window:", e),
+            (Us("[Shanks] failed to activate window:", e),
               Ys(e && e.message ? e.message : ""));
           });
       }),
       ZT());
   } catch (t) {
-    Us("[Comnyang] startup failed:", t);
+    Us("[Shanks] startup failed:", t);
     try {
       Js.showErrorBox(
-        "Comnyang failed to start",
+        "Shanks failed to start",
         t && t.message ? t.message : String(t || "Unknown error"),
       );
     } catch {}

@@ -28,7 +28,7 @@ function createNameEditors({
     if (electronAPI.catNamePromptShown) {
       electronAPI.catNamePromptShown().catch(() => {});
     }
-    catNameInput.value = (initialName || getCurrentCatName() || "Comnyang").trim();
+    catNameInput.value = (initialName || getCurrentCatName() || "Shanks").trim();
     document.body.dataset.editingName = "1";
     keyboardFocus.focusInput(catNameInput);
   }

@@ -11,7 +11,7 @@ function createSvgRegistry({ domDocument = document } = {}) {
   function setDocName(doc, svgName) {
     if (!doc || !svgName) return;
     docNames.set(doc, svgName);
-    if (doc.documentElement) doc.documentElement.setAttribute("data-comnyang-svg-name", svgName);
+    if (doc.documentElement) doc.documentElement.setAttribute("data-shanks-svg-name", svgName);
   }
 
   function runHandlers(handlers, doc, svgName) {
@@ -64,7 +64,7 @@ function createSvgRegistry({ domDocument = document } = {}) {
   }
 
   function getName(doc) {
-    return docNames.get(doc) || (doc && doc.documentElement && doc.documentElement.getAttribute("data-comnyang-svg-name"));
+    return docNames.get(doc) || (doc && doc.documentElement && doc.documentElement.getAttribute("data-shanks-svg-name"));
   }
 
   return {

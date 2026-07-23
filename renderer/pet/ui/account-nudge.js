@@ -2,11 +2,11 @@
 
 // Legacy license users see this small account-link nudge until they link or dismiss it.
 
-const ACCOUNT_NUDGE_DISMISSED_DATE_KEY = "comnyang.accountNudgeDismissedDate";
+const ACCOUNT_NUDGE_DISMISSED_DATE_KEY = "shanks.accountNudgeDismissedDate";
 const ACCOUNT_NUDGE_LABELS = {
-  en: "Connect Comnyang account",
+  en: "Connect Shanks account",
   ko: "콤냥이 계정 연결",
-  ja: "Comnyang アカウント連携",
+  ja: "Shanks アカウント連携",
 };
 
 function todayLocalDateKey() {

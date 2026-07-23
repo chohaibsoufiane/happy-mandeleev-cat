@@ -356,9 +356,9 @@ function createStretchChain({
       return;
     }
 
-    if (isReleasing()) {
+    if (isReleasing() || isDragging()) {
       let stretchT = getStretchT();
-      stretchT += (0 - stretchT) * RELEASE_EASE;
+      stretchT += (0 - stretchT) * (isReleasing() ? RELEASE_EASE : 0.06);
       if (stretchT < 0.01) stretchT = 0;
       setStretchT(stretchT);
     }

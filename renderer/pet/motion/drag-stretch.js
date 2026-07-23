@@ -185,9 +185,9 @@ function createDragStretch({
       lastY = event.screenY;
     }
 
-    const upOffset = dragStartScreenY - event.screenY;
-    const tNow = Math.max(0, Math.min(1, upOffset / maxUpOffset));
-    if (tNow > stretchT) stretchT = tNow;
+    if (dy < 0) {
+      stretchT = Math.min(1, stretchT + (-dy) / 40);
+    }
   }
 
   function handleWindowMouseLeave() {
